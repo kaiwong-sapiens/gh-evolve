@@ -134,6 +134,12 @@ git checkout -b evolve/<issue>/attempt-<N>-<short-description>
 # If strategy is 'mutate' (building on a parent PR):
 git fetch origin <parent-head-ref>
 git checkout -b evolve/<issue>/attempt-<N>-<short-description> FETCH_HEAD
+
+# If strategy is 'crossover' (combining two parents, A and B):
+git fetch origin <parent-A-head-ref>
+git checkout -b evolve/<issue>/attempt-<N>-<short-description> FETCH_HEAD
+git fetch origin <parent-B-head-ref>
+git merge FETCH_HEAD --no-commit # Forces a hybrid state; resolve any conflicts!
 ```
 
 ### 5. Implement
