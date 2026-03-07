@@ -46,10 +46,11 @@ Use evolve skill to set up an issue: approximate pi.
 No math module, only basic arithmetic.
 ```
 
-Trading strategy (if you already have one with backtesting):
+Trading strategy:
 ```text
 Use evolve skill to set up an issue:
 improve my trading strategy's risk-adjusted returns.
+Eval: python backtest.py (prints Sharpe ratio).
 Only modify strategy.py, no lookahead bias,
 max 5 positions at a time.
 ```
