@@ -282,8 +282,25 @@ def cmd_start(args):
     branch = re.sub(r"[^a-zA-Z0-9/_-]", "-", branch)
 
     # Get default branch
-    default_branch = git("rev-parse", "--abbrev-ref", "HEAD")
-    remote_default = git("symbolic-ref", "refs/remotes/origin/HEAD", "--short").split("/")[-1]
+    result = subprocess.run(
+        ["git", "symbolic-ref", "refs/remotes/origin/HEAD", "--short"],
+        capture_output=True, text=True,
+    )
+    if result.returncode == 0:
+        remote_default = result.stdout.strip().split("/")[-1]
+    else:
+        # origin/HEAD not set — fall back to common defaults
+        for candidate in ("main", "master"):
+            check = subprocess.run(
+                ["git", "rev-parse", "--verify", f"origin/{candidate}"],
+                capture_output=True, text=True,
+            )
+            if check.returncode == 0:
+                remote_default = candidate
+                break
+        else:
+            print("Error: cannot determine default branch. Run: git remote set-head origin --auto", file=sys.stderr)
+            sys.exit(1)
 
     git("checkout", remote_default)
     git("pull", "--ff-only")
