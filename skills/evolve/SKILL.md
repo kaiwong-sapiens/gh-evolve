@@ -241,26 +241,23 @@ After creating the PR, rebuild the state from all PRs using the same `gh pr list
 | #3 | 0.581 | `time:1.5s` | explore | - | open | LRU-LFU combo works |
 ```
 
-**2. The Evolutionary Search Graph:** Use the `parents` and `strategy` fields from the JSON blocks to map the lineage (a directed acyclic graph). Generate a Mermaid.js `graph TD` block. Include the primary score and any critical secondary metrics in the node labels. Apply color-coding classes (`:::champion` for the best performing node, `:::pruned` for closed/inferior nodes). Always include a Legend subgraph. For example:
+**2. The Evolutionary Search Graph:** Use the `parents` and `strategy` fields from the JSON blocks to map the lineage (a directed acyclic graph). Generate a Mermaid.js `graph TD` block. 
+- Include the primary score and any critical secondary metrics in the node labels. 
+- Apply color-coding classes (`:::champion` for the best performing node, `:::pruned` for closed/inferior nodes). 
+- Use semantic link weights based on the strategy: `-. explore .->` (dashed), `-- mutate -->` (solid), `== revolution ==>` (thick).
+
+For example:
 ```mermaid
 graph TD
   Baseline["Baseline"]
   PR3["#3 (0.581 | 1.5s)"]:::pruned
   PR4["#4 (0.588 | 1.2s)"]:::champion
-  Baseline -- explore --> PR3
+  Baseline -. explore .-> PR3
   PR3 -- mutate --> PR4
 
   classDef default fill:#f9f9f9,stroke:#333,stroke-width:1px;
   classDef champion fill:#d4edda,stroke:#4caf50,stroke-width:3px;
   classDef pruned fill:#f9f9f9,stroke:#ccc,stroke-width:1px,color:#999;
-
-  subgraph Legend [" "]
-    direction TB
-    L1["Active Trade-off"]
-    L2["Champion"]:::champion
-    L3["Pruned"]:::pruned
-  end
-  style Legend fill:none,stroke:none
 ```
 
 Update the main GitHub Issue body. If the issue is somehow empty or malformed, rebuild the entire `Issue body structure` (including Objective, Eval Command, Matrix, and Graph) from scratch. Otherwise, inject your new Markdown table into the `## Trait Matrix` section and your Mermaid diagram into the `## Evolutionary Search Graph` section. Use the `gh issue edit` CLI or your native tools to apply this update.
