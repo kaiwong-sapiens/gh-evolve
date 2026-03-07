@@ -97,13 +97,13 @@ From the body, extract:
 
 ### 2. Study prior attempts
 
-List all PRs for this issue:
+List all PRs associated with this specific evolution issue to build the Phenotype Matrix. Use a high limit to prevent genetic amnesia across many rounds:
 
 ```bash
-gh pr list --label evolve --state all --json number,title,state,headRefName,body --limit 100
+gh pr list --search "head:evolve/<issue>/ label:evolve" --state all --json number,title,state,headRefName,body --limit 1000
 ```
 
-Filter to PRs whose `headRefName` starts with `evolve/<issue>/`. Parse the score and metrics from each PR body.
+Parse the score and metrics from each PR body in the resulting JSON.
 
 Instead of a strict 1-to-N leaderboard, view these attempts as a **Phenotype Matrix**. You are looking for **patterns in the metrics** (e.g., "The Fast/Inaccurate Profile" vs "The Slow/Precise Profile").
 
@@ -216,7 +216,7 @@ Write a good conclusion. It should include:
 
 ### 8. Update the issue Trait Matrix
 
-After creating the PR, rebuild the matrix from all PRs and update the issue's Trait Matrix section. Fetch all evolve-labeled PRs, parse their metrics, and format as a markdown table. Order them logically (e.g., grouping similar trait profiles together, or roughly by overall utility).
+After creating the PR, rebuild the matrix from all PRs and update the issue's Trait Matrix section. Use the same `gh pr list --search "head:evolve/<issue>/" ... --limit 1000` command to fetch the history. Parse their metrics and format as a markdown table. Order them logically (e.g., grouping similar trait profiles together, or roughly by overall utility).
 
 ```
 | PR | Score | Metrics | Strategy | Parent(s) | Status | Key Insight |
