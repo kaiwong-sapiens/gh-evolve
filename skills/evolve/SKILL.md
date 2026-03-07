@@ -232,14 +232,14 @@ CRITICAL: You must update the GitHub Issue immediately during this step of the r
 
 After creating the PR, rebuild the state from all PRs using the same `gh pr list --search "head:evolve/<issue>/" ... --limit 1000` command to fetch the history. 
 
-**1. The Trait Matrix:** Format a markdown table of all attempts. Order them logically (e.g., grouping similar trait profiles together, or roughly by overall utility). The `Status` column should reflect the phenotype state (`active`, `pruned` if JSON contains `"pruned": true`, or `champion`), NOT the raw GitHub PR state (which is destroyed by Finalization).
+**1. The Trait Matrix:** Format a markdown table of all attempts. Order them logically (e.g., grouping similar trait profiles together, or roughly by overall utility). The `Status` column should reflect the phenotype state (`active`, `pruned` if JSON contains `"pruned": true`, or `champion`), NOT the raw GitHub PR state (which is destroyed by Finalization). Ensure the PR numbers in the `PR` and `Parent(s)` columns are standard Markdown links so users can click directly to the code (e.g., `[#4](<url>)`).
 
 ```
 | PR | Score | Metrics | Strategy | Parent(s) | Status | Key Insight |
 |-----|-------|---------|----------|-----------|--------|-------------|
-| #4 | 0.588 | `time:1.2s` | mutate | #3 | champion | Hybrid recency+freq+IRR |
-| #3 | 0.581 | `time:1.5s` | explore | - | active | LRU-LFU combo works |
-| #2 | 0.100 | `time:2.5s` | explore | - | pruned | Too slow |
+| [#4](url) | 0.588 | `time:1.2s` | mutate | [#3](url) | champion | Hybrid recency+freq+IRR |
+| [#3](url) | 0.581 | `time:1.5s` | explore | - | active | LRU-LFU combo works |
+| [#2](url) | 0.100 | `time:2.5s` | explore | - | pruned | Too slow |
 ```
 
 **2. The Evolutionary Search Graph:** Use the `parents` and `strategy` fields from the JSON blocks to map the lineage (a directed acyclic graph). Generate a Mermaid.js `graph TD` block. 
