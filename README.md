@@ -36,6 +36,12 @@ Then evolve it:
 Evolve issue <number> for 3 rounds
 ```
 
+When you are satisfied with the results, finalize it to automatically merge the winner and clean up the repository:
+
+```
+Finalize evolve issue <number>
+```
+
 ## Try it
 
 **Step 1.** Pick an example and paste the prompt into your CLI:
