@@ -1,107 +1,72 @@
 # gh-evolve
 
-Evolutionary problem-solving over GitHub PRs.
+A Claude Code skill for evolutionary problem-solving over GitHub PRs.
 
-Use any LLM agent (or a human) to iteratively solve optimization problems.
-Each attempt is a PR. The best survive, the rest get pruned.
-State lives entirely in GitHub issues and PRs — no database, no server.
-
-## How it works
+Iteratively optimize code: each attempt is a PR with a score, the best survive, and conclusions teach the next round what to try. State lives entirely in GitHub issues and PRs.
 
 ```
-GitHub Issue (root node)            ← problem definition + leaderboard
-├── PR: attempt-1-baseline          ← score: 0.52
-├── PR: attempt-2-mutate-of-1       ← score: 0.58
-├── PR: attempt-3-mutate-of-2       ← score: 0.61  (best)
-└── PR: attempt-4-crossover-2-3     ← score: 0.55  (pruned)
+GitHub Issue (root node)            <- problem definition + leaderboard
+├── PR: attempt-1-baseline          <- score: 0.52
+├── PR: attempt-2-mutate-of-1       <- score: 0.58
+├── PR: attempt-3-mutate-of-2       <- score: 0.61  (best)
+└── PR: attempt-4-crossover-2-3     <- score: 0.55  (pruned)
 ```
-
-1. **Issue** = problem definition, evaluation command, constraints, leaderboard
-2. **PR** = one attempt with hypothesis, method, score, and conclusion
-3. **Agent** = reads the leaderboard, picks a strategy (mutate/crossover/explore), submits a new PR
-4. **Prune** = close low-scoring PRs, keep the tree manageable
 
 ## Install
 
 ```bash
-# Clone and add to PATH
-git clone https://github.com/<you>/gh-evolve.git
-export PATH="$PATH:$(pwd)/gh-evolve"
-
-# Requires: gh CLI (https://cli.github.com), Python 3.7+, git
+/plugin marketplace add kaiwong-sapiens/gh-evolve
+/plugin install evolve@gh-evolve
 ```
 
-## Quick start
+Requires: `gh` CLI authenticated with your GitHub account.
 
-```bash
-# 1. Create a problem
-evolve init \
-  --title "Optimize sort function" \
-  --objective "Minimize comparisons for lists under 100 elements" \
-  --eval "python evaluate.py" \
-  --constraint "Pure Python, no external libs"
+## Usage
 
-# 2. See what's been tried
-evolve status 1
+Just tell Claude what you want:
 
-# 3. Start a new attempt
-evolve start 1 --strategy explore
-
-# 4. Make your changes, then evaluate
-evolve eval 1
-
-# 5. Submit results
-evolve submit 1 --score 0.73 --strategy explore --conclusion "Baseline using insertion sort"
-
-# 6. Prune when the tree grows
-evolve prune 1 --keep-top 5
+```
+evolve issue 1 for 3 rounds
 ```
 
-## Commands
+```
+improve the score on issue 5
+```
 
-| Command | Description |
-|---------|-------------|
-| `evolve init` | Create a new evolution problem (GitHub issue) |
-| `evolve status <issue>` | Show problem, leaderboard, and suggested next strategy |
-| `evolve start <issue>` | Create a branch for a new attempt |
-| `evolve eval <issue>` | Run the evaluation command from the issue |
-| `evolve submit <issue>` | Open a PR with results, update issue leaderboard |
-| `evolve show <pr>` | View a specific attempt's details and diff |
-| `evolve prune <issue>` | Close low-scoring PRs and clean up |
+```
+set up a new evolution problem for optimizing my sort function
+```
 
-## Using with an LLM agent
+The skill handles everything: reading the issue, studying prior attempts, picking a strategy, implementing changes, evaluating, and submitting PRs.
 
-gh-evolve is agent-agnostic. Drop the right instructions file into your project:
+## How it works
 
-| Agent | File |
-|-------|------|
-| Claude Code | Copy from `adapters/claude-code.md` into your `CLAUDE.md` |
-| Cursor | Copy from `adapters/generic.md` into `.cursorrules` |
-| Aider | Copy from `adapters/generic.md` into your aider config |
-| Any other | Copy from `adapters/generic.md` into your agent's instructions |
+1. **Issue** = problem definition (objective, eval command, constraints) + leaderboard
+2. **PR** = one attempt (hypothesis, method, score, conclusion)
+3. **Strategy** = mutate the best, crossover two approaches, or explore something new
+4. **Prune** = close low-scoring PRs when the tree grows
 
-Then tell your agent: *"Work on evolve issue #42"*
+Each attempt's conclusion feeds into the next round's strategy. Scores provide objective signal. The leaderboard prevents going in circles.
 
-The agent reads the leaderboard, studies past attempts, picks a strategy, and submits a new PR — all through the CLI.
+## Setting up a problem
+
+You need:
+- A function or system to optimize
+- An evaluation script that prints `SCORE: <number>`
+- Constraints (what can and can't be changed)
+
+Tell Claude to set up the problem and it creates the GitHub issue with the right structure.
 
 ## Example
 
-See [`examples/string-distance/`](examples/string-distance/) for a working example:
-evolve a string similarity function to maximize correlation with human judgments.
-
-```bash
-cd examples/string-distance
-python3 generate_benchmark.py   # create the test data
-python3 evaluate.py             # baseline score: ~0.66
-```
+See [kaiwong-sapiens/cache-eviction](https://github.com/kaiwong-sapiens/cache-eviction) for a working example: evolve a cache eviction policy to maximize hit rate across diverse workloads. Baseline FIFO scores 0.48, hybrid approaches reach 0.59+.
 
 ## Design principles
 
-- **Convention over code** — works even without the CLI, it's just a naming pattern
-- **No server, no database** — state lives in GitHub
-- **Agent-agnostic** — any LLM or human can participate
-- **One scalar score** — the evaluation function returns a single number for ranking
-- **Deterministic evaluation** — same code, same score, always
+- **No CLI, no server, no database** — just a skill and GitHub
+- **Convention over code** — structured issue/PR bodies are the protocol
+- **One scalar score** — the evaluation function returns a single number
+- **Conclusions are memory** — each attempt teaches the next what to try
 
 ## License
 

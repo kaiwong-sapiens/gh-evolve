@@ -1,0 +1,17 @@
+{
+  "name": "gh-evolve",
+  "owner": {
+    "name": "kaiwong-sapiens"
+  },
+  "metadata": {
+    "description": "Evolutionary problem-solving over GitHub PRs"
+  },
+  "plugins": [
+    {
+      "name": "evolve",
+      "source": "./plugins/evolve",
+      "description": "Iteratively optimize code using evolutionary search — each attempt is a PR, scores form a leaderboard, best solutions survive",
+      "version": "1.0.0"
+    }
+  ]
+}
