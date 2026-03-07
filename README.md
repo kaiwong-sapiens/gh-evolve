@@ -60,16 +60,13 @@ Tell Claude to set up the problem and it creates the GitHub issue with the right
 
 ## Try it
 
-**Step 1.** Tell Claude to set up everything:
+In any repo with code to optimize, tell Claude:
 
 ```text
-Create a private repo called trading-evolve. Add a trivial buy-and-hold
-strategy in strategy.py, a backtest harness in backtest.py that scores
-by Sharpe ratio across a few market scenarios, and push it. Then set up
-an evolve issue to improve the strategy. Constraint: only modify strategy.py.
+Set up an evolve issue to improve <what you want to optimize>.
 ```
 
-**Step 3.** Let it rip:
+Claude reads your code, creates an eval script if needed, and opens the issue. Then:
 
 ```text
 Evolve issue 1 for 5 rounds

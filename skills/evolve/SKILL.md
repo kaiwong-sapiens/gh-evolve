@@ -209,14 +209,18 @@ Before the next round, review the leaderboard. Did your score improve? Which com
 
 ## Creating a New Problem
 
-When the user wants to set up a new evolution problem:
+When the user wants to set up a new evolution problem, keep it fast — the goal is to get the issue on GitHub quickly so the user can see it and start evolving.
 
-1. Ensure the `evolve` label exists:
+1. **Infer what you can from the codebase.** Read the existing code to understand what to optimize, what the eval script does, and what files should be constrained. The user's prompt can be minimal — fill in the gaps yourself.
+
+2. **If an eval script doesn't exist, create one.** It must print `SCORE: <number>`. Keep it simple and correct. Run it once to verify it works and note the baseline score.
+
+3. **Ensure the `evolve` label exists:**
    ```bash
-   gh label create evolve --description "Evolution problem" --color 7057ff
+   gh label create evolve --description "Evolution problem" --color 7057ff 2>/dev/null || true
    ```
 
-2. Create the issue with the structured body:
+4. **Create the issue with the structured body:**
    ```bash
    gh issue create \
      --title "[Evolve] <problem title>" \
@@ -224,7 +228,7 @@ When the user wants to set up a new evolution problem:
      --body "<issue body following the template above>"
    ```
 
-The user needs to provide: a title, an objective, an evaluation command that prints `SCORE: <number>`, and any constraints.
+Don't overthink the setup. A trivial baseline is fine — the evolution rounds will improve it.
 
 ## Pruning
 
