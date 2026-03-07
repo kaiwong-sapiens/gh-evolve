@@ -62,12 +62,16 @@ Tell Claude to set up the problem and it creates the GitHub issue with the right
 
 **Step 1.** Pick an example and set up the problem:
 
+Pi approximation:
 ```text
-Use the evolve skill to set up a problem to approximate pi. Only basic arithmetic, no math module.
+Use evolve to set up: approximate pi.
+No math module, only basic arithmetic.
 ```
 
+Trading strategy:
 ```text
-Use the evolve skill to set up a problem to optimize a trading strategy by Sharpe ratio across market scenarios.
+Use evolve to set up: optimize a trading
+strategy by Sharpe ratio across market scenarios.
 ```
 
 **Step 2.** Evolve it (pick how many rounds):
