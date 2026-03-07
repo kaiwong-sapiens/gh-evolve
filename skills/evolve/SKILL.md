@@ -252,3 +252,13 @@ Don't overthink the setup. A trivial baseline is fine — the evolution rounds w
 When the leaderboard grows large, close low-scoring PRs to keep things manageable. Close PRs below rank N with a comment explaining why, delete their remote branches, and update the issue leaderboard to show only the kept entries.
 
 Always confirm with the user before pruning.
+
+## Finalizing (Champion Merge)
+
+When the user requests to wrap up or "Finalize" an evolution problem (e.g., `Finalize evolve issue <N>`), your goal is to merge the winning strategy and clean up the environment:
+
+1. **Identify the Winner:** Read the issue leaderboard and identify the `#1` rank PR.
+2. **Promote:** Remove the draft status from the winning PR and request a human review (or merge it directly if the user explicitly authorized it).
+3. **Clean Up Runners-up:** Close all other open PRs for this issue.
+4. **Delete Branches:** Delete the remote branches for the runner-up PRs.
+5. **Close Issue:** Close the main GitHub Issue with a summary comment highlighting the final baseline vs. final score and the key insights learned.
