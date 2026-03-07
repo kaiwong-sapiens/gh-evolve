@@ -60,13 +60,21 @@ Tell Claude to set up the problem and it creates the GitHub issue with the right
 
 ## Try it
 
-In any repo with code to optimize, tell Claude:
+Pick an example and tell Claude:
+
+### Approximate pi
 
 ```text
-Set up an evolve issue to improve <what you want to optimize>.
+Set up an evolve problem to approximate pi. Only basic arithmetic, no math module.
 ```
 
-Claude reads your code, creates an eval script if needed, and opens the issue. Then:
+### Trading strategy
+
+```text
+Set up an evolve problem to optimize a trading strategy by Sharpe ratio across market scenarios.
+```
+
+Then evolve:
 
 ```text
 Evolve issue 1 for 5 rounds
