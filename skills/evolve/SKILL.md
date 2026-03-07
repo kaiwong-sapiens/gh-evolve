@@ -109,6 +109,8 @@ Instead of a strict 1-to-N leaderboard, view these attempts as a **Phenotype Mat
 
 Identify the 2-3 most interesting or dominant profiles. Read their conclusions to decide your strategy. Use your available tools to construct whatever context you need to deeply understand the architecture of these profiles (e.g., reading diffs, entire files, or git history).
 
+**Inspiration Context:** Even if you decide to only strictly `mutate` Parent A, you are highly encouraged to read the code/diffs of Parent B or Parent C to use as "inspiration" for your mutation. Cross-pollination of ideas is critical to escaping local maximums.
+
 ```bash
 gh pr view <pr-number> --json title,body,state,headRefName
 gh pr diff <pr-number>
@@ -158,6 +160,9 @@ git merge FETCH_HEAD --no-commit # Forces a hybrid state; resolve any conflicts!
 ### 6. Evaluate
 
 Extract the eval command from the issue body and run it. 
+
+**Evaluation Cascade (Fast-Fail):**
+If your environment supports it, run cheap/fast heuristic tests first. If the code fails the cheap tests, do not waste compute running the full multi-hour evaluation. Immediately fail the attempt and record the error.
 
 **Security Warning:** If this repository involves running untrusted code or dependencies, it is strongly recommended to run the eval command inside an isolated environment (e.g., Docker container) to prevent the evolutionary algorithm from executing destructive code on your host OS.
 
