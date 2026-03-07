@@ -75,20 +75,11 @@ Objective: maximize risk-adjusted P&L (Sharpe ratio) across backtests.
 Eval: python backtest.py. Constraint: only modify strategy.py, no lookahead bias.
 ```
 
-### Cache eviction
-
-```
-Set up an evolve issue to maximize cache hit rate in solution.py.
-Eval: python evaluate.py. Constraint: only modify the evict() function.
-```
-
 Then evolve:
 
 ```
 Evolve issue 1 for 5 rounds
 ```
-
-See [kaiwong-sapiens/cache-eviction](https://github.com/kaiwong-sapiens/cache-eviction) for a working example of the cache problem.
 
 ## Design principles
 
