@@ -127,6 +127,7 @@ You are not limited to biological analogies. Determine the most logical meta-str
 - **`mutate`**: Refine a promising trait profile. This can range from targeted parameter tuning to substantial structural refactoring.
 - **`crossover`**: Explicitly combine the architecture of two complementary trait profiles.
 - **`co-evolve`**: If the current solutions are trivially "gaming" the eval script (Goodhart's Law), mutate the *evaluation script itself* to add edge cases and raise the difficulty of the environment.
+- **`revolution`**: If the Phenotype Matrix has stagnated at a local maximum across multiple rounds, completely discard the current architectural paradigm. Rewrite the core logic from scratch using a radically different mathematical or structural approach (e.g., shifting from procedural loops to vectorized tensor operations).
 
 ### 4. Create a branch
 
