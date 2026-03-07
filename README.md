@@ -27,7 +27,7 @@ Requires: `gh` CLI authenticated with your GitHub account.
 First, set up a problem (creates a structured GitHub issue):
 
 ```
-Use evolve skill to set up: <what you want to optimize>
+Use evolve skill to set up an issue: <what you want to optimize>
 ```
 
 Then evolve it:
@@ -42,13 +42,13 @@ Evolve issue <number> for 3 rounds
 
 Pi approximation:
 ```text
-Use evolve skill to set up: approximate pi.
+Use evolve skill to set up an issue: approximate pi.
 No math module, only basic arithmetic.
 ```
 
 Trading strategy:
 ```text
-Use evolve skill to set up: optimize a trading
+Use evolve skill to set up an issue: optimize a trading
 strategy by Sharpe ratio across market scenarios.
 ```
 
