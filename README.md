@@ -58,24 +58,37 @@ You need:
 
 Tell Claude to set up the problem and it creates the GitHub issue with the right structure.
 
-## Try it
+## Examples
 
-**Step 1.** Set up the problem:
+### Pi approximation
 
 ```
 Set up an evolve issue to maximize accuracy of estimate_pi() in solution.py.
 Eval: python evaluate.py. Constraint: only modify solution.py.
 ```
 
-**Step 2.** Let it rip:
+### Trading strategy
+
+```
+Set up an evolve issue to improve the trading strategy in strategy.py.
+Objective: maximize risk-adjusted P&L (Sharpe ratio) across backtests.
+Eval: python backtest.py. Constraint: only modify strategy.py, no lookahead bias.
+```
+
+### Cache eviction
+
+```
+Set up an evolve issue to maximize cache hit rate in solution.py.
+Eval: python evaluate.py. Constraint: only modify the evict() function.
+```
+
+Then evolve:
 
 ```
 Evolve issue 1 for 5 rounds
 ```
 
-## More examples
-
-See [kaiwong-sapiens/cache-eviction](https://github.com/kaiwong-sapiens/cache-eviction) for a larger example: evolve a cache eviction policy across diverse workloads.
+See [kaiwong-sapiens/cache-eviction](https://github.com/kaiwong-sapiens/cache-eviction) for a working example of the cache problem.
 
 ## Design principles
 
