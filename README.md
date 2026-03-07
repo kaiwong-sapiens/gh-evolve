@@ -60,21 +60,21 @@ Tell Claude to set up the problem and it creates the GitHub issue with the right
 
 ## Try it
 
-**Step 1.** Pick an example and set up the problem:
+**Step 1.** Pick an example and paste into Claude Code:
 
 Pi approximation:
 ```text
-Use evolve to set up: approximate pi.
+Use evolve skill to set up: approximate pi.
 No math module, only basic arithmetic.
 ```
 
 Trading strategy:
 ```text
-Use evolve to set up: optimize a trading
+Use evolve skill to set up: optimize a trading
 strategy by Sharpe ratio across market scenarios.
 ```
 
-**Step 2.** Evolve it (pick how many rounds):
+**Step 2.** Review the issue on GitHub, then paste:
 
 ```text
 Evolve issue 1 for 3 rounds
