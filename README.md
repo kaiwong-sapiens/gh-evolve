@@ -14,11 +14,13 @@ GitHub Issue (root node)            <- problem definition + leaderboard
 
 ## Install
 
-Paste this into Claude Code:
+Paste into Claude Code:
 
 ```
-Download https://raw.githubusercontent.com/kaiwong-sapiens/gh-evolve/main/skills/evolve/SKILL.md and save it to ~/.claude/skills/evolve/SKILL.md
+Install the evolve skill from github.com/kaiwong-sapiens/gh-evolve
 ```
+
+Claude will download `skills/evolve/SKILL.md` and save it to `~/.claude/skills/evolve/`.
 
 Requires: `gh` CLI authenticated with your GitHub account.
 
