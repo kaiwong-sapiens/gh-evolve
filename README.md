@@ -65,13 +65,13 @@ Pick an example and tell Claude:
 ### Approximate pi
 
 ```text
-Set up an evolve problem to approximate pi. Only basic arithmetic, no math module.
+Use the evolve skill to approximate pi. Only basic arithmetic, no math module.
 ```
 
 ### Trading strategy
 
 ```text
-Set up an evolve problem to optimize a trading strategy by Sharpe ratio across market scenarios.
+Use the evolve skill to optimize a trading strategy by Sharpe ratio across market scenarios.
 ```
 
 Then evolve:
