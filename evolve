@@ -55,12 +55,13 @@ def get_prs_for_issue(issue_number):
     """List all PRs associated with an evolution issue."""
     raw = gh(
         "pr", "list",
-        "--search", f"evolve/{issue_number}/ in:head",
+        "--label", LABEL,
         "--state", "all",
         "--json", "number,title,state,headRefName,body",
         "--limit", "100",
     )
-    return json.loads(raw)
+    prefix = f"{BRANCH_PREFIX}/{issue_number}/"
+    return [pr for pr in json.loads(raw) if pr.get("headRefName", "").startswith(prefix)]
 
 
 def parse_score(body):
