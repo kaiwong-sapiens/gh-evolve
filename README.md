@@ -45,14 +45,6 @@ Evolve issue <number> for 3 rounds
 
 Each attempt's conclusion feeds into the next round's strategy. Scores provide objective signal. The leaderboard prevents going in circles.
 
-## Setting up a problem
-
-You need:
-- A function or system to optimize
-- An evaluation script that prints `SCORE: <number>`
-- Constraints (what can and can't be changed)
-
-Tell Claude to set up the problem and it creates the GitHub issue with the right structure.
 
 ## Try it
 
