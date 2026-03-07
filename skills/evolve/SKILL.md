@@ -67,12 +67,12 @@ These conventions make everything work together. Follow them exactly.
 
 ### Conclusion
 <what you learned — this is the most important field>
+
+<!-- EVOLVE_STATE: {"score": <float>, "strategy": "<strategy>", "parents": [<pr-number>, ...]} -->
 ```
 
 ### Parsing rules
-- **Score**: `## Score: <float>` line in PR body
-- **Strategy**: `## Strategy: <text>` line in PR body
-- **Parents**: `## Parent(s): #N, #M` line in PR body
+- **Score & State**: Read the hidden JSON block at the bottom of the PR body `<!-- EVOLVE_STATE: {...} -->` for deterministic parsing. Use this JSON for sorting and logic.
 - **Eval command**: fenced code block under `## Evaluate` in issue body
 - **Key insight**: first line of `### Conclusion` section (truncated to 80 chars for leaderboard)
 
@@ -104,9 +104,10 @@ gh pr list --label evolve --state all --json number,title,state,headRefName,body
 
 Filter to PRs whose `headRefName` starts with `evolve/<issue>/`. Parse the score from each PR body. Sort by score descending — that's the leaderboard.
 
-For the top 2-3 scoring PRs, read their conclusions and diffs:
+For the top 2-3 scoring PRs, read their conclusions to decide your strategy. ONLY pull the `diff` for the specific parent PR(s) you decide to mutate or crossover to avoid context bloat:
 ```bash
 gh pr view <pr-number> --json title,body,state,headRefName
+# Only if mutating/crossing over this specific PR:
 gh pr diff <pr-number>
 ```
 
@@ -123,9 +124,16 @@ The conclusions tell you what directions are promising and which are dead ends. 
 
 Determine the next attempt number by finding the highest existing attempt number and adding 1.
 
+CRITICAL: If your strategy is `mutate` or `crossover`, you MUST start from the parent PR's branch or apply its changes to main.
+
 ```bash
+# If strategy is 'explore' (starting fresh):
 git checkout main && git pull --ff-only
 git checkout -b evolve/<issue>/attempt-<N>-<short-description>
+
+# If strategy is 'mutate' (building on a parent PR):
+git fetch origin <parent-head-ref>
+git checkout -b evolve/<issue>/attempt-<N>-<short-description> FETCH_HEAD
 ```
 
 ### 5. Implement
@@ -137,7 +145,9 @@ git checkout -b evolve/<issue>/attempt-<N>-<short-description>
 
 ### 6. Evaluate
 
-Extract the eval command from the issue body and run it:
+Extract the eval command from the issue body and run it. 
+
+**Security Warning:** If this repository involves running untrusted code or dependencies, it is strongly recommended to run the eval command inside an isolated environment (e.g., Docker container) to prevent the evolutionary algorithm from executing destructive code on your host OS.
 
 ```bash
 <eval-command>
@@ -153,10 +163,11 @@ git commit -m "<descriptive message>"
 git push -u origin <branch-name>
 ```
 
-Create the PR with the structured body:
+Create the PR with the structured body as a DRAFT to avoid cluttering reviewers and CI/CD pipelines:
 
 ```bash
 gh pr create \
+  --draft \
   --title "[Evolve] <short title>" \
   --label evolve \
   --body "$(cat <<'EOF'
@@ -176,6 +187,8 @@ gh pr create \
 
 ### Conclusion
 <what you learned, what to try next>
+
+<!-- EVOLVE_STATE: {"score": <score>, "strategy": "<strategy>", "parents": [<parent-pr>]} -->
 EOF
 )"
 ```
