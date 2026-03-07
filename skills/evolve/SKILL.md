@@ -244,7 +244,6 @@ After creating the PR, rebuild the state from all PRs using the same `gh pr list
 **2. The Evolutionary Search Graph:** Use the `parents` and `strategy` fields from the JSON blocks to map the lineage (a directed acyclic graph). Generate a Mermaid.js `graph TD` block. 
 - Include the primary score and any critical secondary metrics in the node labels. 
 - Apply color-coding classes (`:::champion` for the best performing node, `:::pruned` for closed/inferior nodes). 
-- Use semantic link weights based on the strategy: `-. explore .->` (dashed), `-- mutate -->` (solid), `== revolution ==>` (thick).
 
 For example:
 ```mermaid
@@ -252,7 +251,7 @@ graph TD
   Baseline["Baseline"]
   PR3["#3 (0.581 | 1.5s)"]:::pruned
   PR4["#4 (0.588 | 1.2s)"]:::champion
-  Baseline -. explore .-> PR3
+  Baseline -- explore --> PR3
   PR3 -- mutate --> PR4
 
   classDef default fill:#f9f9f9,stroke:#333,stroke-width:1px;
