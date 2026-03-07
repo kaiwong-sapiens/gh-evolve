@@ -233,11 +233,7 @@ After creating the PR, rebuild the matrix from all PRs and update the issue's Tr
 | #3 | 0.581 | `time:1.5s` | explore | - | open | LRU-LFU combo works |
 ```
 
-Update the issue body by replacing the content under `## Trait Matrix` with the new table:
-
-```bash
-gh issue edit <issue> --body "<updated body>"
-```
+Update the main GitHub Issue body. If the issue is somehow empty or malformed, rebuild the entire `Issue body structure` (including Objective and Eval Command) from scratch. Otherwise, inject your new Markdown table into the `## Trait Matrix` section. Use the `gh issue edit` CLI or your native tools to apply this update.
 
 ### 9. Reflect (multi-round)
 
