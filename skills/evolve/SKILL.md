@@ -102,7 +102,7 @@ List all PRs for this issue:
 gh pr list --label evolve --state all --json number,title,state,headRefName,body --limit 100
 ```
 
-Filter to PRs whose `headRefName` starts with `evolve/<issue>/`. Parse the score from each PR body. Sort by score descending — that's the leaderboard.
+Filter to PRs whose `headRefName` starts with `evolve/<issue>/`. Parse the score and any secondary metrics from each PR body. Sort by score descending — that's the leaderboard.
 
 For the top 2-3 scoring PRs, read their conclusions to decide your strategy. ONLY pull the `diff` for the specific parent PR(s) you decide to mutate or crossover to avoid context bloat:
 ```bash
@@ -115,10 +115,12 @@ The conclusions tell you what directions are promising and which are dead ends. 
 
 ### 3. Choose a strategy
 
+Do not blindly select the #1 ranked PR as your parent. **Analyze the trade-offs across all secondary metrics.** If Rank 1 has a high primary score but severe regressions in other metrics (e.g., terrible memory usage or latency), you may choose to build upon a lower-ranked but better-balanced PR.
+
 - **No attempts yet** → `explore`. Start with a solid, well-known approach. Don't overthink; establish a baseline.
-- **Score improving** → `mutate`. Refine the best attempt. Small, targeted changes addressing known weaknesses.
+- **Score improving** → `mutate`. Refine the most balanced, high-scoring attempt. Make small, targeted changes addressing its specific weaknesses.
 - **Stagnating (3+ attempts, no improvement)** → `explore`. Try something fundamentally different — a different algorithm, representation, or decomposition.
-- **Two good approaches with complementary strengths** → `crossover`. Combine the best ideas from each.
+- **Two good approaches with complementary strengths** → `crossover`. For example, if PR A is highly accurate but slow, and PR B is fast but slightly less accurate, combine the best ideas from each.
 
 ### 4. Create a branch
 
