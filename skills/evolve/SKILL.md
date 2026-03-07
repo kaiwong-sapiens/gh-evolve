@@ -106,10 +106,10 @@ Filter to PRs whose `headRefName` starts with `evolve/<issue>/`. Parse the score
 
 Instead of a strict 1-to-N leaderboard, view these attempts as a **Phenotype Matrix**. You are looking for **patterns in the metrics** (e.g., "The Fast/Inaccurate Profile" vs "The Slow/Precise Profile").
 
-Identify the 2-3 most interesting or dominant profiles. Read their conclusions to decide your strategy. ONLY pull the `diff` for the specific parent PR(s) you decide to mutate or crossover to avoid context bloat:
+Identify the 2-3 most interesting or dominant profiles. Read their conclusions to decide your strategy. Use your available tools to construct whatever context you need to deeply understand the architecture of these profiles (e.g., reading diffs, entire files, or git history).
+
 ```bash
 gh pr view <pr-number> --json title,body,state,headRefName
-# Only if mutating/crossing over this specific PR:
 gh pr diff <pr-number>
 ```
 
@@ -117,27 +117,34 @@ The conclusions tell you what directions are promising and which are dead ends. 
 
 ### 3. Choose a strategy
 
-Do not blindly look for the "highest score". **Analyze the trade-offs across all metrics to understand the whole pattern.** If one PR discovered a novel structural pattern that massively improved memory but slightly hurt accuracy, that is a highly valuable trait profile to build upon.
+You are not limited to biological analogies. Determine the most logical meta-strategy to advance the system. Below are *examples*, but you should **invent your own evolutionary operators** (e.g., `distill`, `fuzz`, `ensemble`) if the situation demands it.
 
-- **No attempts yet** → `explore`. Start with a solid, well-known approach. Establish a baseline profile.
-- **Clear, promising trait profile** → `mutate`. Refine an attempt that has a strong pattern of metrics. Address its specific weaknesses. This can range from targeted parameter tuning to substantial structural refactoring—do whatever is semantically required to break through the current metric bottleneck without destroying its core strengths.
-- **Stagnating (3+ attempts, no meaningful changes in metrics)** → `explore`. Try something fundamentally different — a different algorithm, representation, or decomposition to discover a new trait profile.
-- **Two complementary trait profiles** → `crossover`. For example, if PR A is structurally fast but sloppy, and PR B is slow but precise, explicitly combine the best ideas from each to try and merge the patterns.
+**Example Operators:**
+- **`explore`**: Start with a solid, well-known approach to establish a baseline profile.
+- **`mutate`**: Refine a promising trait profile. This can range from targeted parameter tuning to substantial structural refactoring.
+- **`crossover`**: Explicitly combine the architecture of two complementary trait profiles.
+- **`co-evolve`**: If the current solutions are trivially "gaming" the eval script (Goodhart's Law), mutate the *evaluation script itself* to add edge cases and raise the difficulty of the environment.
 
 ### 4. Create a branch
 
 Determine the next attempt number by finding the highest existing attempt number and adding 1.
 
-CRITICAL: If your strategy is `mutate` or `crossover`, you MUST start from the parent PR's branch or apply its changes to main.
+CRITICAL: You must checkout the correct git state for your chosen strategy. 
 
 ```bash
-# If strategy is 'explore' (starting fresh):
+# If starting fresh (explore) or targeting the environment (co-evolve):
 git checkout main && git pull --ff-only
 git checkout -b evolve/<issue>/attempt-<N>-<short-description>
 
-# If strategy is 'mutate' (building on a parent PR):
+# If building on a single parent (mutate, distill, fuzz, etc.):
 git fetch origin <parent-head-ref>
 git checkout -b evolve/<issue>/attempt-<N>-<short-description> FETCH_HEAD
+
+# If combining multiple parents (crossover, ensemble, etc.):
+git fetch origin <parent-A-head-ref>
+git checkout -b evolve/<issue>/attempt-<N>-<short-description> FETCH_HEAD
+git fetch origin <parent-B-head-ref>
+git merge FETCH_HEAD --no-commit # Forces a hybrid state; resolve any conflicts!
 ```
 
 ### 5. Implement
