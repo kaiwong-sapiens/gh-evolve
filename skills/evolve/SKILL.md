@@ -254,12 +254,13 @@ graph TD
   classDef champion fill:#d4edda,stroke:#4caf50,stroke-width:3px;
   classDef pruned fill:#f8d7da,stroke:#f5c6cb,stroke-width:1px,color:#721c24,stroke-dasharray: 5 5;
 
-  subgraph Legend
-    direction LR
+  subgraph Legend [" "]
+    direction TB
     L1["Active Trade-off"]
     L2["Champion"]:::champion
     L3["Pruned"]:::pruned
   end
+  style Legend fill:none,stroke:none
 ```
 
 Update the main GitHub Issue body. If the issue is somehow empty or malformed, rebuild the entire `Issue body structure` (including Objective, Eval Command, Matrix, and Graph) from scratch. Otherwise, inject your new Markdown table into the `## Trait Matrix` section and your Mermaid diagram into the `## Evolutionary Search Graph` section. Use the `gh issue edit` CLI or your native tools to apply this update.
