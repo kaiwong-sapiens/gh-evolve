@@ -24,21 +24,17 @@ Requires: `gh` CLI authenticated with your GitHub account.
 
 ## Usage
 
-Just tell Claude what you want:
+First, set up a problem (creates a structured GitHub issue):
 
 ```
-evolve issue 1 for 3 rounds
+Use evolve skill to set up: <what you want to optimize>
 ```
 
-```
-improve the score on issue 5
-```
+Then evolve it:
 
 ```
-set up a new evolution problem for optimizing my sort function
+Evolve issue <number> for 3 rounds
 ```
-
-The skill handles everything: reading the issue, studying prior attempts, picking a strategy, implementing changes, evaluating, and submitting PRs.
 
 ## How it works
 
