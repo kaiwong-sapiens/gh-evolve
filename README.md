@@ -60,20 +60,13 @@ Tell Claude to set up the problem and it creates the GitHub issue with the right
 
 ## Try it
 
-**Step 1.** Tell Claude to create a toy project:
+**Step 1.** Tell Claude to set up everything:
 
 ```text
-Create a private trading strategy repo with a baseline buy-and-hold strategy,
-a backtest that scores by Sharpe ratio across bull/bear/sideways markets,
-and push it to GitHub.
-```
-
-**Step 2.** Open Claude Code in the new repo, then set up the evolution problem:
-
-```text
-Set up an evolve issue to improve the trading strategy.
-Objective: maximize risk-adjusted P&L (Sharpe ratio) across backtests.
-Eval: python3 backtest.py. Constraint: only modify strategy.py, no lookahead bias.
+Create a private repo called trading-evolve. Add a trivial buy-and-hold
+strategy in strategy.py, a backtest harness in backtest.py that scores
+by Sharpe ratio across a few market scenarios, and push it. Then set up
+an evolve issue to improve the strategy. Constraint: only modify strategy.py.
 ```
 
 **Step 3.** Let it rip:
