@@ -36,14 +36,14 @@ These conventions make everything work together. Follow them exactly.
 
 ## Evaluate
 ```bash
-<command that prints SCORE: <number>>
+<command that prints metrics and/or a primary score>
 ```
 
 ## Constraints
 <rules for valid attempts>
 
-## Summary Table
-<leaderboard — markdown table or "No attempts yet.">
+## Trait Matrix
+<markdown table of attempts and their metric profiles>
 
 ## Evolution Log
 - Initialized.
@@ -72,9 +72,9 @@ These conventions make everything work together. Follow them exactly.
 ```
 
 ### Parsing rules
-- **Score & State**: Read the hidden JSON block at the bottom of the PR body `<!-- EVOLVE_STATE: {...} -->` for deterministic parsing. Use this JSON for sorting and logic.
+- **Score & State**: Read the hidden JSON block at the bottom of the PR body `<!-- EVOLVE_STATE: {...} -->` for deterministic parsing. 
 - **Eval command**: fenced code block under `## Evaluate` in issue body
-- **Key insight**: first line of `### Conclusion` section (truncated to 80 chars for leaderboard)
+- **Key insight**: first line of `### Conclusion` section (truncated to 80 chars for the Trait Matrix)
 
 ## Protocol
 
@@ -92,7 +92,7 @@ From the body, extract:
 - The objective (under `## Objective`)
 - The eval command (code block under `## Evaluate`)
 - The constraints (under `## Constraints`)
-- The current leaderboard (under `## Summary Table`)
+- The current profile of attempts (under `## Trait Matrix`)
 
 ### 2. Study prior attempts
 
@@ -102,9 +102,11 @@ List all PRs for this issue:
 gh pr list --label evolve --state all --json number,title,state,headRefName,body --limit 100
 ```
 
-Filter to PRs whose `headRefName` starts with `evolve/<issue>/`. Parse the score and any secondary metrics from each PR body. Sort by score descending — that's the leaderboard.
+Filter to PRs whose `headRefName` starts with `evolve/<issue>/`. Parse the score and metrics from each PR body.
 
-For the top 2-3 scoring PRs, read their conclusions to decide your strategy. ONLY pull the `diff` for the specific parent PR(s) you decide to mutate or crossover to avoid context bloat:
+Instead of a strict 1-to-N leaderboard, view these attempts as a **Phenotype Matrix**. You are looking for **patterns in the metrics** (e.g., "The Fast/Inaccurate Profile" vs "The Slow/Precise Profile").
+
+Identify the 2-3 most interesting or dominant profiles. Read their conclusions to decide your strategy. ONLY pull the `diff` for the specific parent PR(s) you decide to mutate or crossover to avoid context bloat:
 ```bash
 gh pr view <pr-number> --json title,body,state,headRefName
 # Only if mutating/crossing over this specific PR:
@@ -115,12 +117,12 @@ The conclusions tell you what directions are promising and which are dead ends. 
 
 ### 3. Choose a strategy
 
-Do not blindly select the #1 ranked PR as your parent. **Analyze the trade-offs across all secondary metrics.** If Rank 1 has a high primary score but severe regressions in other metrics (e.g., terrible memory usage or latency), you may choose to build upon a lower-ranked but better-balanced PR.
+Do not blindly look for the "highest score". **Analyze the trade-offs across all metrics to understand the whole pattern.** If one PR discovered a novel structural pattern that massively improved memory but slightly hurt accuracy, that is a highly valuable trait profile to build upon.
 
-- **No attempts yet** → `explore`. Start with a solid, well-known approach. Don't overthink; establish a baseline.
-- **Score improving** → `mutate`. Refine the most balanced, high-scoring attempt. Make small, targeted changes addressing its specific weaknesses.
-- **Stagnating (3+ attempts, no improvement)** → `explore`. Try something fundamentally different — a different algorithm, representation, or decomposition.
-- **Two good approaches with complementary strengths** → `crossover`. For example, if PR A is highly accurate but slow, and PR B is fast but slightly less accurate, combine the best ideas from each.
+- **No attempts yet** → `explore`. Start with a solid, well-known approach. Establish a baseline profile.
+- **Clear, promising trait profile** → `mutate`. Refine an attempt that has a strong pattern of metrics. Make small, targeted changes addressing its specific weaknesses without destroying its core strengths.
+- **Stagnating (3+ attempts, no meaningful changes in metrics)** → `explore`. Try something fundamentally different — a different algorithm, representation, or decomposition to discover a new trait profile.
+- **Two complementary trait profiles** → `crossover`. For example, if PR A is structurally fast but sloppy, and PR B is slow but precise, explicitly combine the best ideas from each to try and merge the patterns.
 
 ### 4. Create a branch
 
@@ -201,18 +203,18 @@ Write a good conclusion. It should include:
 - Per-component scores if available
 - What the next attempt should focus on
 
-### 8. Update the issue leaderboard
+### 8. Update the issue Trait Matrix
 
-After creating the PR, rebuild the leaderboard from all PRs and update the issue's Summary Table section. Fetch all evolve-labeled PRs, parse their scores, sort descending, and format as a markdown table:
+After creating the PR, rebuild the matrix from all PRs and update the issue's Trait Matrix section. Fetch all evolve-labeled PRs, parse their metrics, and format as a markdown table. Order them logically (e.g., grouping similar trait profiles together, or roughly by overall utility).
 
 ```
-| Rank | PR | Score | Metrics | Strategy | Parent(s) | Status | Key Insight |
-|------|-----|-------|---------|----------|-----------|--------|-------------|
-| 1 | #4 | 0.588 | `time:1.2s` | mutate | #3 | open | Hybrid recency+freq+IRR |
-| 2 | #3 | 0.581 | `time:1.5s` | explore | - | open | LRU-LFU combo works |
+| PR | Score | Metrics | Strategy | Parent(s) | Status | Key Insight |
+|-----|-------|---------|----------|-----------|--------|-------------|
+| #4 | 0.588 | `time:1.2s` | mutate | #3 | open | Hybrid recency+freq+IRR |
+| #3 | 0.581 | `time:1.5s` | explore | - | open | LRU-LFU combo works |
 ```
 
-Update the issue body by replacing the content under `## Summary Table` with the new table:
+Update the issue body by replacing the content under `## Trait Matrix` with the new table:
 
 ```bash
 gh issue edit <issue> --body "<updated body>"
@@ -220,7 +222,7 @@ gh issue edit <issue> --body "<updated body>"
 
 ### 9. Reflect (multi-round)
 
-Before the next round, review the leaderboard. Did your score improve? Which components are weakest? Are you hitting diminishing returns? Use this to pick the next strategy.
+Before the next round, review the Trait Matrix. Have you discovered a new pattern? Which specific metric is acting as a bottleneck for your current best profile? Are you hitting diminishing returns on a specific trait? Use this to pick the next strategy.
 
 ## Creating a New Problem
 
@@ -251,6 +253,6 @@ Don't overthink the setup. A trivial baseline is fine — the evolution rounds w
 
 ## Pruning
 
-When the leaderboard grows large, close low-scoring PRs to keep things manageable. Close PRs below rank N with a comment explaining why, delete their remote branches, and update the issue leaderboard to show only the kept entries.
+When the matrix grows large, close redundant or strictly inferior PRs to keep things manageable. Prune an attempt if another attempt is **strictly better across ALL metrics** (Pareto inferior). Keep attempts that offer a unique, valuable trade-off profile. Close pruned PRs with a comment explaining why, delete their remote branches, and update the issue's Trait Matrix to show only the kept entries.
 
 Always confirm with the user before pruning.
