@@ -222,6 +222,8 @@ Write a good conclusion. It should include:
 
 ### 8. Update the issue Trait Matrix
 
+CRITICAL: You must update the GitHub Issue immediately during this step of the round. Do not wait until all rounds are finished. 
+
 After creating the PR, rebuild the matrix from all PRs and update the issue's Trait Matrix section. Use the same `gh pr list --search "head:evolve/<issue>/" ... --limit 1000` command to fetch the history. Parse their metrics and format as a markdown table. Order them logically (e.g., grouping similar trait profiles together, or roughly by overall utility).
 
 ```
