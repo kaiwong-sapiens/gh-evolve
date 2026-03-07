@@ -241,12 +241,12 @@ After creating the PR, rebuild the state from all PRs using the same `gh pr list
 | #3 | 0.581 | `time:1.5s` | explore | - | open | LRU-LFU combo works |
 ```
 
-**2. The Evolutionary Search Graph:** Use the `parents` and `strategy` fields from the JSON blocks to map the lineage (a directed acyclic graph). Generate a Mermaid.js `graph TD` block. For example:
+**2. The Evolutionary Search Graph:** Use the `parents` and `strategy` fields from the JSON blocks to map the lineage (a directed acyclic graph). Generate a Mermaid.js `graph TD` block. Include the primary score and any critical secondary metrics in the node labels so trade-offs are visible visually. For example:
 ```mermaid
 graph TD
   Baseline["Baseline"]
-  PR3["#3 (0.581)"]
-  PR4["#4 (0.588)"]
+  PR3["#3 (0.581 | 1.5s)"]
+  PR4["#4 (0.588 | 1.2s)"]
   Baseline -- explore --> PR3
   PR3 -- mutate --> PR4
 ```
