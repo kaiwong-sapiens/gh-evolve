@@ -68,7 +68,7 @@ a backtest that scores by Sharpe ratio across bull/bear/sideways markets,
 and push it to GitHub.
 ```
 
-**Step 2.** Tell Claude to set up the evolution problem:
+**Step 2.** Open Claude Code in the new repo, then set up the evolution problem:
 
 ```text
 Set up an evolve issue to improve the trading strategy.
