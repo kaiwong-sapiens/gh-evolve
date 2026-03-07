@@ -46,6 +46,12 @@ These conventions make everything work together. Follow them exactly.
 ## Trait Matrix
 <markdown table of attempts and their metric profiles>
 
+## Evolutionary Tree
+```mermaid
+graph TD
+  Baseline["Baseline"]
+```
+
 ## Evolution Log
 - Initialized.
 ```
@@ -220,11 +226,13 @@ Write a good conclusion. It should include:
 - Per-component scores if available
 - What the next attempt should focus on
 
-### 8. Update the issue Trait Matrix
+### 8. Update the issue Trait Matrix and Graph
 
 CRITICAL: You must update the GitHub Issue immediately during this step of the round. Do not wait until all rounds are finished. 
 
-After creating the PR, rebuild the matrix from all PRs and update the issue's Trait Matrix section. Use the same `gh pr list --search "head:evolve/<issue>/" ... --limit 1000` command to fetch the history. Parse their metrics and format as a markdown table. Order them logically (e.g., grouping similar trait profiles together, or roughly by overall utility).
+After creating the PR, rebuild the state from all PRs using the same `gh pr list --search "head:evolve/<issue>/" ... --limit 1000` command to fetch the history. 
+
+**1. The Trait Matrix:** Format a markdown table of all attempts. Order them logically (e.g., grouping similar trait profiles together, or roughly by overall utility).
 
 ```
 | PR | Score | Metrics | Strategy | Parent(s) | Status | Key Insight |
@@ -233,7 +241,17 @@ After creating the PR, rebuild the matrix from all PRs and update the issue's Tr
 | #3 | 0.581 | `time:1.5s` | explore | - | open | LRU-LFU combo works |
 ```
 
-Update the main GitHub Issue body. If the issue is somehow empty or malformed, rebuild the entire `Issue body structure` (including Objective and Eval Command) from scratch. Otherwise, inject your new Markdown table into the `## Trait Matrix` section. Use the `gh issue edit` CLI or your native tools to apply this update.
+**2. The Evolutionary Tree:** Use the `parents` and `strategy` fields from the JSON blocks to map the lineage. Generate a Mermaid.js `graph TD` block. For example:
+```mermaid
+graph TD
+  Baseline["Baseline"]
+  PR3["#3 (0.581)"]
+  PR4["#4 (0.588)"]
+  Baseline -- explore --> PR3
+  PR3 -- mutate --> PR4
+```
+
+Update the main GitHub Issue body. If the issue is somehow empty or malformed, rebuild the entire `Issue body structure` (including Objective, Eval Command, Matrix, and Tree) from scratch. Otherwise, inject your new Markdown table into the `## Trait Matrix` section and your Mermaid diagram into the `## Evolutionary Tree` section. Use the `gh issue edit` CLI or your native tools to apply this update.
 
 ### 9. Reflect (multi-round)
 
