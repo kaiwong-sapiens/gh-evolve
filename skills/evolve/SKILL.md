@@ -153,6 +153,9 @@ Extract the eval command from the issue body and run it.
 <eval-command>
 ```
 
+**Self-Correction Loop:**
+If the command fails, crashes, or throws a syntax error/traceback, DO NOT create the PR immediately. You have up to **3 attempts** to read the error, fix the code, and re-run the evaluation. If the code still fails after 3 attempts, proceed to create the PR but record the `Score` as `-inf` or `0` and note the failure in the conclusion.
+
 Note the `SCORE:` line in the output. If there are per-component scores, note those too.
 
 ### 7. Commit and submit
