@@ -20,8 +20,6 @@ Paste into Claude Code:
 Install the evolve skill from github.com/kaiwong-sapiens/gh-evolve
 ```
 
-Claude will download `skills/evolve/SKILL.md` and save it to `~/.claude/skills/evolve/`.
-
 Requires: `gh` CLI authenticated with your GitHub account.
 
 ## Usage
