@@ -63,7 +63,7 @@ Tell Claude to set up the problem and it creates the GitHub issue with the right
 **Step 1.** Create a toy project to play with:
 
 ```
-Create a trading strategy repo with a baseline buy-and-hold strategy,
+Create a private trading strategy repo with a baseline buy-and-hold strategy,
 a backtest that scores by Sharpe ratio across bull/bear/sideways markets,
 and push it to GitHub.
 ```
