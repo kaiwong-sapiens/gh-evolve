@@ -241,7 +241,7 @@ After creating the PR, rebuild the state from all PRs using the same `gh pr list
 | #3 | 0.581 | `time:1.5s` | explore | - | open | LRU-LFU combo works |
 ```
 
-**2. The Evolutionary Search Graph:** Use the `parents` and `strategy` fields from the JSON blocks to map the lineage (a directed acyclic graph). Generate a Mermaid.js `graph TD` block. Include the primary score and any critical secondary metrics in the node labels. Apply color-coding classes (`:::champion` for the best performing node, `:::pruned` for closed/inferior nodes). For example:
+**2. The Evolutionary Search Graph:** Use the `parents` and `strategy` fields from the JSON blocks to map the lineage (a directed acyclic graph). Generate a Mermaid.js `graph TD` block. Include the primary score and any critical secondary metrics in the node labels. Apply color-coding classes (`:::champion` for the best performing node, `:::pruned` for closed/inferior nodes). Always include a Legend subgraph. For example:
 ```mermaid
 graph TD
   Baseline["Baseline"]
@@ -253,6 +253,13 @@ graph TD
   classDef default fill:#f9f9f9,stroke:#333,stroke-width:1px;
   classDef champion fill:#d4edda,stroke:#4caf50,stroke-width:3px;
   classDef pruned fill:#f8d7da,stroke:#f5c6cb,stroke-width:1px,color:#721c24,stroke-dasharray: 5 5;
+
+  subgraph Legend
+    direction LR
+    L1["Active Trade-off"]
+    L2["Champion"]:::champion
+    L3["Pruned"]:::pruned
+  end
 ```
 
 Update the main GitHub Issue body. If the issue is somehow empty or malformed, rebuild the entire `Issue body structure` (including Objective, Eval Command, Matrix, and Graph) from scratch. Otherwise, inject your new Markdown table into the `## Trait Matrix` section and your Mermaid diagram into the `## Evolutionary Search Graph` section. Use the `gh issue edit` CLI or your native tools to apply this update.
