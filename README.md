@@ -50,6 +50,8 @@ Trading strategy (if you already have one with a backtest):
 ```text
 Use evolve skill to set up an issue:
 improve my trading strategy's risk-adjusted returns.
+Only modify strategy.py, no lookahead bias,
+max 5 positions at a time.
 ```
 
 **Step 2.** Review the issue on GitHub, then paste:
