@@ -66,8 +66,9 @@ A toy problem to see the full loop.
 
 ```
 Create a public repo called my-pi with a function estimate_pi() that returns 3.
-Set up an evolve problem to maximize accuracy of the estimate.
-Eval: python evaluate.py. Constraint: only modify solution.py, no math module.
+Add an evaluate.py that scores accuracy against math.pi.
+Set up an evolve issue to maximize accuracy.
+Constraint: only modify solution.py, no math module.
 ```
 
 **Step 2.** Let it rip:
