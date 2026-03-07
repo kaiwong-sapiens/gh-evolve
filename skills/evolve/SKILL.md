@@ -252,7 +252,7 @@ graph TD
 
   classDef default fill:#f9f9f9,stroke:#333,stroke-width:1px;
   classDef champion fill:#d4edda,stroke:#4caf50,stroke-width:3px;
-  classDef pruned fill:#f8d7da,stroke:#f5c6cb,stroke-width:1px,color:#721c24,stroke-dasharray: 5 5;
+  classDef pruned fill:#f9f9f9,stroke:#ccc,stroke-width:1px,color:#999,stroke-dasharray: 5 5;
 
   subgraph Legend [" "]
     direction TB
