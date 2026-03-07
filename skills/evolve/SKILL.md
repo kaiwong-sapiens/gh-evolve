@@ -1,6 +1,6 @@
 ---
 name: evolve
-description: Iteratively optimize code using evolutionary problem-solving over GitHub PRs. Use this skill whenever the user wants to run evolution rounds on an issue, improve a score through multiple attempts, set up a new optimization problem, or check evolution status. Trigger on phrases like "evolve issue", "do N rounds", "improve the score", "optimize over iterations", "try multiple approaches and keep the best", "run evolution on", or any request to iteratively improve code with scoring and a leaderboard.
+description: Evolutionary problem-solving over GitHub PRs. Only trigger when the user explicitly mentions "evolve skill", "evolve issue", or "use evolve". Do NOT trigger on general optimization, improvement, or scoring requests.
 ---
 
 # Evolutionary Problem-Solving over GitHub PRs
