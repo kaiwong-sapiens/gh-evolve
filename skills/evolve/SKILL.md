@@ -46,7 +46,7 @@ These conventions make everything work together. Follow them exactly.
 ## Trait Matrix
 <markdown table of attempts and their metric profiles>
 
-## Evolutionary Tree
+## Evolutionary Search Graph
 ```mermaid
 graph TD
   Baseline["Baseline"]
@@ -241,7 +241,7 @@ After creating the PR, rebuild the state from all PRs using the same `gh pr list
 | #3 | 0.581 | `time:1.5s` | explore | - | open | LRU-LFU combo works |
 ```
 
-**2. The Evolutionary Tree:** Use the `parents` and `strategy` fields from the JSON blocks to map the lineage. Generate a Mermaid.js `graph TD` block. For example:
+**2. The Evolutionary Search Graph:** Use the `parents` and `strategy` fields from the JSON blocks to map the lineage (a directed acyclic graph). Generate a Mermaid.js `graph TD` block. For example:
 ```mermaid
 graph TD
   Baseline["Baseline"]
@@ -251,7 +251,7 @@ graph TD
   PR3 -- mutate --> PR4
 ```
 
-Update the main GitHub Issue body. If the issue is somehow empty or malformed, rebuild the entire `Issue body structure` (including Objective, Eval Command, Matrix, and Tree) from scratch. Otherwise, inject your new Markdown table into the `## Trait Matrix` section and your Mermaid diagram into the `## Evolutionary Tree` section. Use the `gh issue edit` CLI or your native tools to apply this update.
+Update the main GitHub Issue body. If the issue is somehow empty or malformed, rebuild the entire `Issue body structure` (including Objective, Eval Command, Matrix, and Graph) from scratch. Otherwise, inject your new Markdown table into the `## Trait Matrix` section and your Mermaid diagram into the `## Evolutionary Search Graph` section. Use the `gh issue edit` CLI or your native tools to apply this update.
 
 ### 9. Reflect (multi-round)
 
