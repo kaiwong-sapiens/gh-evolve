@@ -55,7 +55,7 @@ Only modify strategy.py, no lookahead bias,
 max 5 positions at a time.
 ```
 
-**Step 2.** Review the issue on GitHub, then paste:
+**Step 2.** Review the issue on GitHub, modify as needed. Then paste the prompt into your CLI:
 
 ```text
 Evolve issue 1 for 3 rounds
