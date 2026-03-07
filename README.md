@@ -15,16 +15,7 @@ GitHub Issue (root node)            <- problem definition + leaderboard
 ## Install
 
 ```bash
-mkdir -p ~/.claude/skills
-cp -r skills/evolve ~/.claude/skills/evolve
-```
-
-Or directly from GitHub:
-
-```bash
-mkdir -p ~/.claude/skills/evolve
-curl -sL https://raw.githubusercontent.com/kaiwong-sapiens/gh-evolve/main/skills/evolve/SKILL.md \
-  -o ~/.claude/skills/evolve/SKILL.md
+curl -sL https://raw.githubusercontent.com/kaiwong-sapiens/gh-evolve/main/install.sh | sh
 ```
 
 Requires: `gh` CLI authenticated with your GitHub account.
