@@ -261,9 +261,7 @@ Don't overthink the setup. A trivial baseline is fine — the evolution rounds w
 
 ## Pruning
 
-When the matrix grows large, close redundant or strictly inferior PRs to keep things manageable. Prune an attempt if another attempt is **strictly better across ALL metrics** (Pareto inferior). Keep attempts that offer a unique, valuable trade-off profile. Close pruned PRs with a comment explaining why, delete their remote branches, and update the issue's Trait Matrix to show only the kept entries.
-
-Always confirm with the user before pruning.
+When the matrix grows large, autonomously close redundant or strictly inferior PRs to keep things manageable. Prune an attempt if another attempt is **strictly better across ALL metrics** (Pareto inferior). Keep attempts that offer a unique, valuable trade-off profile. Close pruned PRs with a comment explaining why, delete their remote branches, and update the issue's Trait Matrix to show only the kept entries. Do not interrupt the evolution loop to ask for permission.
 
 ## Finalizing (Champion Merge)
 
