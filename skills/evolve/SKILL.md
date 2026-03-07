@@ -68,7 +68,7 @@ These conventions make everything work together. Follow them exactly.
 ### Conclusion
 <what you learned — this is the most important field>
 
-<!-- EVOLVE_STATE: {"score": <float>, "strategy": "<strategy>", "parents": [<pr-number>, ...]} -->
+<!-- EVOLVE_STATE: {"score": <float>, "strategy": "<strategy>", "parents": [<pr-number>, ...], "metrics": "<short string of secondary metrics>"} -->
 ```
 
 ### Parsing rules
@@ -188,7 +188,7 @@ gh pr create \
 ### Conclusion
 <what you learned, what to try next>
 
-<!-- EVOLVE_STATE: {"score": <score>, "strategy": "<strategy>", "parents": [<parent-pr>]} -->
+<!-- EVOLVE_STATE: {"score": <score>, "strategy": "<strategy>", "parents": [<parent-pr>], "metrics": "<secondary metrics if any>"} -->
 EOF
 )"
 ```
@@ -204,10 +204,10 @@ Write a good conclusion. It should include:
 After creating the PR, rebuild the leaderboard from all PRs and update the issue's Summary Table section. Fetch all evolve-labeled PRs, parse their scores, sort descending, and format as a markdown table:
 
 ```
-| Rank | PR | Score | Strategy | Parent(s) | Status | Key Insight |
-|------|-----|-------|----------|-----------|--------|-------------|
-| 1 | #4 | 0.588 | mutate | #3 | open | Hybrid recency+freq+IRR |
-| 2 | #3 | 0.581 | explore | - | open | LRU-LFU combo works |
+| Rank | PR | Score | Metrics | Strategy | Parent(s) | Status | Key Insight |
+|------|-----|-------|---------|----------|-----------|--------|-------------|
+| 1 | #4 | 0.588 | `time:1.2s` | mutate | #3 | open | Hybrid recency+freq+IRR |
+| 2 | #3 | 0.581 | `time:1.5s` | explore | - | open | LRU-LFU combo works |
 ```
 
 Update the issue body by replacing the content under `## Summary Table` with the new table:
