@@ -40,7 +40,7 @@ Evolve issue <number> for 3 rounds
 
 **Step 1.** Pick an example and paste prompt in Claude Code:
 
-Pi approximation:
+Pi approximation (example: [kaiwong-sapiens/approximate-pi#1](https://github.com/kaiwong-sapiens/approximate-pi/issues/1)):
 ```text
 Use evolve skill to set up an issue: approximate pi.
 No math module, only basic arithmetic.
