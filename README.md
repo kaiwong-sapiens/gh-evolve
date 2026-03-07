@@ -58,17 +58,13 @@ You need:
 
 Tell Claude to set up the problem and it creates the GitHub issue with the right structure.
 
-## Try it: Approximate Pi
+## Try it
 
-A toy problem to see the full loop.
-
-**Step 1.** Create a GitHub repo with a pi estimation problem:
+**Step 1.** Set up the problem:
 
 ```
-Create a public repo called my-pi with a function estimate_pi() that returns 3.
-Add an evaluate.py that scores accuracy against math.pi.
-Set up an evolve issue to maximize accuracy.
-Constraint: only modify solution.py, no math module.
+Set up an evolve issue to maximize accuracy of estimate_pi() in solution.py.
+Eval: python evaluate.py. Constraint: only modify solution.py.
 ```
 
 **Step 2.** Let it rip:
@@ -76,8 +72,6 @@ Constraint: only modify solution.py, no math module.
 ```
 Evolve issue 1 for 5 rounds
 ```
-
-Watch it go from `return 3` (score: 0.86) to Leibniz series, Nilakantha, Machin's formula, and beyond.
 
 ## More examples
 
