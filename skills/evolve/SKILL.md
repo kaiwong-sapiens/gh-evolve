@@ -232,18 +232,22 @@ CRITICAL: You must update the GitHub Issue immediately during this step of the r
 
 After creating the PR, rebuild the state from all PRs using the same `gh pr list --search "head:evolve/<issue>/" ... --limit 1000` command to fetch the history. 
 
-**1. The Trait Matrix:** Format a markdown table of all attempts. Order them logically (e.g., grouping similar trait profiles together, or roughly by overall utility).
+**1. The Trait Matrix:** Format a markdown table of all attempts. Order them logically (e.g., grouping similar trait profiles together, or roughly by overall utility). The `Status` column should reflect the phenotype state (`active`, `pruned` if JSON contains `"pruned": true`, or `champion`), NOT the raw GitHub PR state (which is destroyed by Finalization).
 
 ```
 | PR | Score | Metrics | Strategy | Parent(s) | Status | Key Insight |
 |-----|-------|---------|----------|-----------|--------|-------------|
-| #4 | 0.588 | `time:1.2s` | mutate | #3 | open | Hybrid recency+freq+IRR |
-| #3 | 0.581 | `time:1.5s` | explore | - | open | LRU-LFU combo works |
+| #4 | 0.588 | `time:1.2s` | mutate | #3 | champion | Hybrid recency+freq+IRR |
+| #3 | 0.581 | `time:1.5s` | explore | - | active | LRU-LFU combo works |
+| #2 | 0.100 | `time:2.5s` | explore | - | pruned | Too slow |
 ```
 
 **2. The Evolutionary Search Graph:** Use the `parents` and `strategy` fields from the JSON blocks to map the lineage (a directed acyclic graph). Generate a Mermaid.js `graph TD` block. 
 - Include the primary score and any critical secondary metrics in the node labels. 
-- Apply color-coding classes (`:::champion` for the best performing node, `:::pruned` for closed/inferior nodes). 
+- Apply color-coding classes based on metadata, *not* GitHub state (since `Finalize` closes all PRs):
+  - `:::champion` for the current best performing node.
+  - `:::pruned` ONLY if the PR's JSON block contains `"pruned": true` (indicating it was Pareto inferior during evolution).
+  - All other nodes remain default.
 
 For example:
 ```mermaid
@@ -294,7 +298,15 @@ Don't overthink the setup. A trivial baseline is fine — the evolution rounds w
 
 ## Pruning
 
-When the matrix grows large, autonomously close redundant or strictly inferior PRs to keep things manageable. Prune an attempt if another attempt is **strictly better across ALL metrics** (Pareto inferior). Keep attempts that offer a unique, valuable trade-off profile. Close pruned PRs with a comment explaining why, delete their remote branches, and update the issue's Trait Matrix to show only the kept entries. Do not interrupt the evolution loop to ask for permission.
+When the matrix grows large, autonomously close redundant or strictly inferior PRs to keep things manageable. Prune an attempt if another attempt is **strictly better across ALL metrics** (Pareto inferior). Keep attempts that offer a unique, valuable trade-off profile. 
+
+To prune a PR:
+1. Edit the PR body to inject `"pruned": true` into its `EVOLVE_STATE` JSON block. This ensures the search graph remembers it was pruned even after finalization.
+2. Close the PR with a comment explaining why it is Pareto inferior.
+3. Delete its remote branch.
+4. Update the issue's Trait Matrix to show only the kept entries. 
+
+Do not interrupt the evolution loop to ask for permission.
 
 ## Finalizing (Champion Merge)
 
