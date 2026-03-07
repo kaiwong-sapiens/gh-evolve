@@ -120,7 +120,7 @@ The conclusions tell you what directions are promising and which are dead ends. 
 Do not blindly look for the "highest score". **Analyze the trade-offs across all metrics to understand the whole pattern.** If one PR discovered a novel structural pattern that massively improved memory but slightly hurt accuracy, that is a highly valuable trait profile to build upon.
 
 - **No attempts yet** → `explore`. Start with a solid, well-known approach. Establish a baseline profile.
-- **Clear, promising trait profile** → `mutate`. Refine an attempt that has a strong pattern of metrics. Make small, targeted changes addressing its specific weaknesses without destroying its core strengths.
+- **Clear, promising trait profile** → `mutate`. Refine an attempt that has a strong pattern of metrics. Address its specific weaknesses. This can range from targeted parameter tuning to substantial structural refactoring—do whatever is semantically required to break through the current metric bottleneck without destroying its core strengths.
 - **Stagnating (3+ attempts, no meaningful changes in metrics)** → `explore`. Try something fundamentally different — a different algorithm, representation, or decomposition to discover a new trait profile.
 - **Two complementary trait profiles** → `crossover`. For example, if PR A is structurally fast but sloppy, and PR B is slow but precise, explicitly combine the best ideas from each to try and merge the patterns.
 
@@ -145,7 +145,7 @@ git checkout -b evolve/<issue>/attempt-<N>-<short-description> FETCH_HEAD
 - Read the code you're modifying first
 - One idea per attempt — don't bundle unrelated changes
 - Think about why prior approaches scored the way they did
-- Keep changes minimal and focused
+- Ensure your changes are coherent and specifically designed to improve the target metrics. Do not arbitrarily limit the scale of your changes if a major refactor is required.
 
 ### 6. Evaluate
 
