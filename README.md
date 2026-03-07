@@ -38,7 +38,7 @@ Evolve issue <number> for 3 rounds
 
 ## Try it
 
-**Step 1.** Pick an example and paste into Claude Code:
+**Step 1.** Pick an example and paste prompt in Claude Code:
 
 Pi approximation:
 ```text
