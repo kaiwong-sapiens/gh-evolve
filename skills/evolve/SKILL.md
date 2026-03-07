@@ -220,13 +220,17 @@ When the user wants to set up a new evolution problem, keep it fast — the goal
    gh label create evolve --description "Evolution problem" --color 7057ff 2>/dev/null || true
    ```
 
-4. **Create the issue with the structured body:**
+4. **Commit and push any new files** (eval script, baseline code, etc.) so the repo is up to date before evolution starts.
+
+5. **Create the issue with the structured body:**
    ```bash
    gh issue create \
      --title "[Evolve] <problem title>" \
      --label evolve \
      --body "<issue body following the template above>"
    ```
+
+6. **Print the issue URL** so the user can review it on GitHub before evolving.
 
 Don't overthink the setup. A trivial baseline is fine — the evolution rounds will improve it.
 
