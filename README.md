@@ -1,6 +1,6 @@
 # gh-evolve
 
-An AI Agent skill for evolutionary problem-solving over GitHub PRs. Works with **Claude Code** and **Gemini CLI**.
+An AI Agent skill for evolutionary problem-solving over GitHub PRs. Works with Claude Code and Gemini CLI.
 
 Iteratively optimize code: each attempt is a PR with a score, the best survive, and conclusions teach the next round what to try. State lives entirely in GitHub issues and PRs.
 
