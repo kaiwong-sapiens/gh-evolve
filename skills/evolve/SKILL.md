@@ -43,14 +43,14 @@ These conventions make everything work together. Follow them exactly.
 ## Constraints
 <rules for valid attempts>
 
-## Trait Matrix
-<markdown table of attempts and their metric profiles>
-
 ## Evolutionary Search Graph
 ```mermaid
 graph TD
   Baseline["Baseline"]
 ```
+
+## Trait Matrix
+<markdown table of attempts and their metric profiles>
 
 ## Evolution Log
 - Initialized.
@@ -226,23 +226,13 @@ Write a good conclusion. It should include:
 - Per-component scores if available
 - What the next attempt should focus on
 
-### 8. Update the issue Trait Matrix and Graph
+### 8. Update the issue Graph and Trait Matrix
 
 CRITICAL: You must update the GitHub Issue immediately during this step of the round. Do not wait until all rounds are finished. 
 
 After creating the PR, rebuild the state from all PRs using the same `gh pr list --search "head:evolve/<issue>/" ... --limit 1000` command to fetch the history. 
 
-**1. The Trait Matrix:** Format a markdown table of all attempts. Order them logically (e.g., grouping similar trait profiles together, or roughly by overall utility). The `Status` column should reflect the phenotype state (`active`, `pruned` if JSON contains `"pruned": true`, or `champion`), NOT the raw GitHub PR state (which is destroyed by Finalization).
-
-```
-| PR | Score | Metrics | Strategy | Parent(s) | Status | Key Insight |
-|-----|-------|---------|----------|-----------|--------|-------------|
-| #4 | 0.588 | `time:1.2s` | mutate | #3 | champion | Hybrid recency+freq+IRR |
-| #3 | 0.581 | `time:1.5s` | explore | - | active | LRU-LFU combo works |
-| #2 | 0.100 | `time:2.5s` | explore | - | pruned | Too slow |
-```
-
-**2. The Evolutionary Search Graph:** Use the `parents` and `strategy` fields from the JSON blocks to map the lineage (a directed acyclic graph). Generate a Mermaid.js `graph TD` block. 
+**1. The Evolutionary Search Graph:** Use the `parents` and `strategy` fields from the JSON blocks to map the lineage (a directed acyclic graph). Generate a Mermaid.js `graph TD` block. 
 - Include the primary score and any critical secondary metrics in the node labels. 
 - Apply color-coding classes based on metadata, *not* GitHub state (since `Finalize` closes all PRs):
   - `:::champion` for the current best performing node.
@@ -263,7 +253,17 @@ graph TD
   classDef pruned fill:#f9f9f9,stroke:#ccc,stroke-width:1px,color:#999;
 ```
 
-Update the main GitHub Issue body. If the issue is somehow empty or malformed, rebuild the entire `Issue body structure` (including Objective, Eval Command, Matrix, and Graph) from scratch. Otherwise, inject your new Markdown table into the `## Trait Matrix` section and your Mermaid diagram into the `## Evolutionary Search Graph` section. Use the `gh issue edit` CLI or your native tools to apply this update.
+**2. The Trait Matrix:** Format a markdown table of all attempts. Order them logically (e.g., grouping similar trait profiles together, or roughly by overall utility). The `Status` column should reflect the phenotype state (`active`, `pruned` if JSON contains `"pruned": true`, or `champion`), NOT the raw GitHub PR state (which is destroyed by Finalization).
+
+```
+| PR | Score | Metrics | Strategy | Parent(s) | Status | Key Insight |
+|-----|-------|---------|----------|-----------|--------|-------------|
+| #4 | 0.588 | `time:1.2s` | mutate | #3 | champion | Hybrid recency+freq+IRR |
+| #3 | 0.581 | `time:1.5s` | explore | - | active | LRU-LFU combo works |
+| #2 | 0.100 | `time:2.5s` | explore | - | pruned | Too slow |
+```
+
+Update the main GitHub Issue body. If the issue is somehow empty or malformed, rebuild the entire `Issue body structure` (including Objective, Eval Command, Graph, and Matrix) from scratch. Otherwise, inject your new Mermaid diagram into the `## Evolutionary Search Graph` section and your Markdown table into the `## Trait Matrix` section. Use the `gh issue edit` CLI or your native tools to apply this update.
 
 ### 9. Reflect (multi-round)
 
