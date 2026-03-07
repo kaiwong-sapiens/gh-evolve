@@ -165,7 +165,10 @@ Extract the eval command from the issue body and run it.
 <eval-command>
 ```
 
-Note the `SCORE:` line in the output. If there are per-component scores, note those too.
+**Self-Correction Loop:**
+If the command fails, crashes, or throws a syntax error/traceback, DO NOT create the PR immediately. You have up to **3 attempts** to read the error, fix the code, and re-run the evaluation. If the code still fails after 3 attempts, proceed to create the PR but record the metrics as `failed` and note the error in the conclusion.
+
+Note the resulting metrics from the output to populate your `EVOLVE_STATE`.
 
 ### 7. Commit and submit
 
@@ -238,7 +241,7 @@ When the user wants to set up a new evolution problem, keep it fast — the goal
 
 1. **Infer what you can from the codebase.** Read the existing code to understand what to optimize, what the eval script does, and what files should be constrained. The user's prompt can be minimal — fill in the gaps yourself.
 
-2. **If an eval script doesn't exist, create one.** It must print `SCORE: <number>`. Keep it simple and correct. Run it once to verify it works and note the baseline score.
+2. **If an eval script doesn't exist, create one.** It should print a clear profile of metrics (e.g., Accuracy, Latency, Memory) to establish the initial Trait Matrix. Keep it simple and correct. Run it once to verify it works and note the baseline metrics.
 
 3. **Ensure the `evolve` label exists:**
    ```bash
