@@ -1,6 +1,7 @@
 ---
 name: evolve
 description: Evolutionary problem-solving over GitHub PRs. Only trigger when the user explicitly mentions "evolve skill", "evolve issue", or "use evolve". Do NOT trigger on general optimization, improvement, or scoring requests.
+source: https://github.com/kaiwong-sapiens/gh-evolve
 ---
 
 # Evolutionary Problem-Solving over GitHub PRs
@@ -263,3 +264,21 @@ Don't overthink the setup. A trivial baseline is fine — the evolution rounds w
 When the matrix grows large, close redundant or strictly inferior PRs to keep things manageable. Prune an attempt if another attempt is **strictly better across ALL metrics** (Pareto inferior). Keep attempts that offer a unique, valuable trade-off profile. Close pruned PRs with a comment explaining why, delete their remote branches, and update the issue's Trait Matrix to show only the kept entries.
 
 Always confirm with the user before pruning.
+
+## Finalizing (Champion Merge)
+
+When the user requests to wrap up or "Finalize" an evolution problem (e.g., `Finalize evolve issue <N>`), your goal is to merge the winning strategy and clean up the environment:
+
+1. **Identify the Winner:** Read the issue leaderboard and identify the most valuable PR based on the trait matrix.
+2. **Promote:** Remove the draft status from the winning PR and request a human review (or merge it directly if the user explicitly authorized it).
+3. **Clean Up Runners-up:** Close all other open PRs for this issue.
+4. **Delete Branches:** Delete the remote branches for the runner-up PRs.
+5. **Close Issue:** Close the main GitHub Issue with a summary comment highlighting the final baseline vs. final metric profile and the key insights learned.
+
+## Updating the Skill
+
+If the user explicitly asks to "update the evolve skill" or "check for updates to the evolve skill":
+1. Fetch the latest `SKILL.md` from the `main` branch of the `source` repository listed in the frontmatter:
+   `curl -s https://raw.githubusercontent.com/kaiwong-sapiens/gh-evolve/main/skills/evolve/SKILL.md`
+2. Compare the fetched content to your currently loaded instructions.
+3. If there are meaningful updates, overwrite your local skill definition file with the new content and inform the user of the new capabilities.
