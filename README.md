@@ -1,6 +1,6 @@
 # gh-evolve
 
-A Claude Code skill for evolutionary problem-solving over GitHub PRs.
+An AI Agent skill for evolutionary problem-solving over GitHub PRs. Works with **[Claude Code](https://github.com/anthropics/claude-code)** and **[Gemini CLI](https://github.com/google/gemini-cli)**.
 
 Iteratively optimize code: each attempt is a PR with a score, the best survive, and conclusions teach the next round what to try. State lives entirely in GitHub issues and PRs.
 
@@ -14,7 +14,7 @@ GitHub Issue (root node)            <- problem definition + leaderboard
 
 ## Install
 
-Paste into Claude Code:
+Paste into your CLI:
 
 ```
 Install the evolve skill from github.com/kaiwong-sapiens/gh-evolve
@@ -38,7 +38,7 @@ Evolve issue <number> for 3 rounds
 
 ## Try it
 
-**Step 1.** Pick an example and paste prompt in Claude Code:
+**Step 1.** Pick an example and paste the prompt into your CLI:
 
 Pi approximation (example: [kaiwong-sapiens/approximate-pi#1](https://github.com/kaiwong-sapiens/approximate-pi/issues/1)):
 ```text
