@@ -58,24 +58,25 @@ You need:
 
 Tell Claude to set up the problem and it creates the GitHub issue with the right structure.
 
-## Examples
+## Try it
 
-### Pi approximation
-
-```
-Set up an evolve issue to maximize accuracy of estimate_pi() in solution.py.
-Eval: python evaluate.py. Constraint: only modify solution.py.
-```
-
-### Trading strategy
+**Step 1.** Create a toy project to play with:
 
 ```
-Set up an evolve issue to improve the trading strategy in strategy.py.
+Create a trading strategy repo with a baseline buy-and-hold strategy,
+a backtest that scores by Sharpe ratio across bull/bear/sideways markets,
+and push it to GitHub.
+```
+
+**Step 2.** Set up the evolution problem:
+
+```
+Set up an evolve issue to improve the trading strategy.
 Objective: maximize risk-adjusted P&L (Sharpe ratio) across backtests.
-Eval: python backtest.py. Constraint: only modify strategy.py, no lookahead bias.
+Eval: python3 backtest.py. Constraint: only modify strategy.py, no lookahead bias.
 ```
 
-Then evolve:
+**Step 3.** Let it rip:
 
 ```
 Evolve issue 1 for 5 rounds
