@@ -60,45 +60,17 @@ Tell Claude to set up the problem and it creates the GitHub issue with the right
 
 ## Try it: Approximate Pi
 
-A toy problem to see the full loop. Evolve a function that estimates pi using only basic arithmetic — no `math` module allowed.
+A toy problem to see the full loop.
 
-**Step 1.** Create a repo with two files:
-
-`solution.py`
-```python
-def estimate_pi():
-    return 3
-```
-
-`evaluate.py`
-```python
-import math
-from solution import estimate_pi
-
-pi = estimate_pi()
-error = abs(pi - math.pi)
-score = max(0, 1 - error)
-print(f"Estimate: {pi}")
-print(f"Error: {error:.10f}")
-print(f"SCORE: {score:.10f}")
-```
-
-**Step 2.** Push it to GitHub:
-
-```bash
-git init && git add -A && git commit -m "init"
-gh repo create my-pi --public --source=. --push
-```
-
-**Step 3.** Tell Claude:
+**Step 1.** Create a GitHub repo with a pi estimation problem:
 
 ```
-Set up an evolve problem to approximate pi.
-Objective: maximize accuracy. Eval: python evaluate.py.
-Constraint: only modify solution.py, no math module.
+Create a public repo called my-pi with a function estimate_pi() that returns 3.
+Set up an evolve problem to maximize accuracy of the estimate.
+Eval: python evaluate.py. Constraint: only modify solution.py, no math module.
 ```
 
-**Step 4.** Let it rip:
+**Step 2.** Let it rip:
 
 ```
 Evolve issue 1 for 5 rounds
