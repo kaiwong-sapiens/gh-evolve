@@ -1,6 +1,6 @@
 # gh-evolve
 
-A Claude Code skill for evolutionary problem-solving over GitHub PRs.
+A Claude Code skill for evolutionary problem-solving over GitHub PRs. Inspired by Google's [AlphaEvolve](https://deepmind.google/discover/blog/alphaevolve-a-gemini-powered-coding-agent-for-designing-advanced-algorithms/).
 
 Iteratively optimize code: each attempt is a PR with a score, the best survive, and conclusions teach the next round what to try. State lives entirely in GitHub issues and PRs.
 
