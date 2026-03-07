@@ -36,16 +36,6 @@ Then evolve it:
 Evolve issue <number> for 3 rounds
 ```
 
-## How it works
-
-1. **Issue** = problem definition (objective, eval command, constraints) + leaderboard
-2. **PR** = one attempt (hypothesis, method, score, conclusion)
-3. **Strategy** = mutate the best, crossover two approaches, or explore something new
-4. **Prune** = close low-scoring PRs when the tree grows
-
-Each attempt's conclusion feeds into the next round's strategy. Scores provide objective signal. The leaderboard prevents going in circles.
-
-
 ## Try it
 
 **Step 1.** Pick an example and paste into Claude Code:
@@ -67,6 +57,15 @@ strategy by Sharpe ratio across market scenarios.
 ```text
 Evolve issue 1 for 3 rounds
 ```
+
+## How it works
+
+1. **Issue** = problem definition (objective, eval command, constraints) + leaderboard
+2. **PR** = one attempt (hypothesis, method, score, conclusion)
+3. **Strategy** = mutate the best, crossover two approaches, or explore something new
+4. **Prune** = close low-scoring PRs when the tree grows
+
+Each attempt's conclusion feeds into the next round's strategy. Scores provide objective signal. The leaderboard prevents going in circles.
 
 ## License
 
