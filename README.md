@@ -14,7 +14,7 @@ GitHub Issue (root node)            <- problem definition + leaderboard
 
 ## Install
 
-Paste into your AI Agent CLI:
+Paste into your CLI:
 
 ```
 Install the evolve skill from github.com/kaiwong-sapiens/gh-evolve
@@ -38,7 +38,7 @@ Evolve issue <number> for 3 rounds
 
 ## Try it
 
-**Step 1.** Pick an example and paste the prompt into your AI Agent CLI:
+**Step 1.** Pick an example and paste the prompt into your CLI:
 
 Pi approximation (example: [kaiwong-sapiens/approximate-pi#1](https://github.com/kaiwong-sapiens/approximate-pi/issues/1)):
 ```text
