@@ -43,7 +43,7 @@ These conventions make everything work together. Follow them exactly.
 ## Constraints
 <rules for valid attempts>
 
-## Evolutionary Search Graph
+## Search Graph
 ```mermaid
 graph TD
   Baseline["Baseline"]
@@ -232,7 +232,7 @@ CRITICAL: You must update the GitHub Issue immediately during this step of the r
 
 After creating the PR, rebuild the state from all PRs using the same `gh pr list --search "head:evolve/<issue>/" ... --limit 1000` command to fetch the history. 
 
-**1. The Evolutionary Search Graph:** Use the `parents` and `strategy` fields from the JSON blocks to map the lineage (a directed acyclic graph). Generate a Mermaid.js `graph TD` block. 
+**1. The Search Graph:** Use the `parents` and `strategy` fields from the JSON blocks to map the lineage (a directed acyclic graph). Generate a Mermaid.js `graph TD` block. 
 - Include the primary score and any critical secondary metrics in the node labels. 
 - Apply color-coding classes based on metadata, *not* GitHub state (since `Finalize` closes all PRs):
   - `:::champion` for the current best performing node.
@@ -263,7 +263,7 @@ graph TD
 | #2 | 0.100 | `time:2.5s` | explore | - | pruned | Too slow |
 ```
 
-Update the main GitHub Issue body. If the issue is somehow empty or malformed, rebuild the entire `Issue body structure` (including Objective, Eval Command, Graph, and Matrix) from scratch. Otherwise, inject your new Mermaid diagram into the `## Evolutionary Search Graph` section and your Markdown table into the `## Trait Matrix` section. Use the `gh issue edit` CLI or your native tools to apply this update.
+Update the main GitHub Issue body. If the issue is somehow empty or malformed, rebuild the entire `Issue body structure` (including Objective, Eval Command, Graph, and Matrix) from scratch. Otherwise, inject your new Mermaid diagram into the `## Search Graph` section and your Markdown table into the `## Trait Matrix` section. Use the `gh issue edit` CLI or your native tools to apply this update.
 
 ### 9. Reflect (multi-round)
 
