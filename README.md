@@ -14,15 +14,11 @@ GitHub Issue (root node)            <- problem definition + leaderboard
 
 ## Install
 
-**For Claude Code:**
-Paste into Claude Code:
+Paste into your AI Agent CLI:
 
 ```
 Install the evolve skill from github.com/kaiwong-sapiens/gh-evolve
 ```
-
-**For Gemini CLI:**
-Clone this repository to a directory (e.g., `~/.gemini/skills/evolve`) so Gemini can load it as an available skill.
 
 Requires: `gh` CLI authenticated with your GitHub account.
 
@@ -42,7 +38,7 @@ Evolve issue <number> for 3 rounds
 
 ## Try it
 
-**Step 1.** Pick an example and paste the prompt into Claude Code or Gemini CLI:
+**Step 1.** Pick an example and paste the prompt into your AI Agent CLI:
 
 Pi approximation (example: [kaiwong-sapiens/approximate-pi#1](https://github.com/kaiwong-sapiens/approximate-pi/issues/1)):
 ```text
