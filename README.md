@@ -46,7 +46,7 @@ Use evolve skill to set up an issue: approximate pi.
 No math module, only basic arithmetic.
 ```
 
-Trading strategy (if you already have one with a backtest):
+Trading strategy (if you already have one with backtesting):
 ```text
 Use evolve skill to set up an issue:
 improve my trading strategy's risk-adjusted returns.
