@@ -46,10 +46,10 @@ Use evolve skill to set up an issue: approximate pi.
 No math module, only basic arithmetic.
 ```
 
-Trading strategy:
+Trading strategy (if you already have one with a backtest):
 ```text
-Use evolve skill to set up an issue: optimize a trading
-strategy by Sharpe ratio across market scenarios.
+Use evolve skill to set up an issue:
+improve my trading strategy's risk-adjusted returns.
 ```
 
 **Step 2.** Review the issue on GitHub, then paste:
