@@ -80,13 +80,6 @@ strategy by Sharpe ratio across market scenarios.
 Evolve issue 1 for 3 rounds
 ```
 
-## Design principles
-
-- **No CLI, no server, no database** — just a skill and GitHub
-- **Convention over code** — structured issue/PR bodies are the protocol
-- **One scalar score** — the evaluation function returns a single number
-- **Conclusions are memory** — each attempt teaches the next what to try
-
 ## License
 
 MIT
