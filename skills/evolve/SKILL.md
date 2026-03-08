@@ -232,26 +232,37 @@ CRITICAL: You must update the GitHub Issue immediately during this step of the r
 
 After creating the PR, rebuild the state from all PRs using the same `gh pr list --search "head:evolve/<issue>/" ... --limit 1000` command to fetch the history. 
 
-**1. The Search Graph:** Use the `parents` and `strategy` fields from the JSON blocks to map the lineage (a directed acyclic graph). Generate a Mermaid.js `graph TD` block. 
-- Include the primary score and any critical secondary metrics in the node labels. 
+**1. The Search Graph:** Use the `parents` and `strategy` fields from the JSON blocks to map the lineage (a directed acyclic graph). Generate a Mermaid.js `graph TD` block.
+- Include the primary score and any critical secondary metrics in the node labels.
 - Apply color-coding classes based on metadata, *not* GitHub state (since `Finalize` closes all PRs):
   - `:::champion` for the current best performing node.
   - `:::pruned` ONLY if the PR's JSON block contains `"pruned": true` (indicating it was Pareto inferior during evolution).
-  - All other nodes remain default.
+  - All other nodes remain default (no `:::` suffix).
+
+**Mermaid Syntax Rules (CRITICAL — violating these breaks GitHub rendering):**
+These characters have special meaning in Mermaid and MUST NOT appear inside node labels (the text between `["` and `"]`):
+- **`|` (pipe)** — Mermaid uses this as edge label delimiter. Use a comma, space, or semicolon instead.
+- **`[` and `]` (square brackets)** — Mermaid uses these for node shapes. Use `(` `)` or omit.
+- **`$` (dollar sign)** — Can interfere with rendering. Omit currency symbols; just write the number.
+- **`{` and `}` (curly braces)** — Mermaid uses these for decision nodes. Omit.
+- **`#` (hash) followed by a semicolon** — Mermaid interprets `#NNN;` as HTML entities. Bare `#123` without semicolon is fine.
+- **Keep labels short** — Aim for under 40 characters per label. Long labels with special characters compound parsing failures.
 
 For example:
 ```mermaid
 graph TD
-  Baseline["Baseline"]
-  PR3["#3 (0.581 | 1.5s)"]:::pruned
-  PR4["#4 (0.588 | 1.2s)"]:::champion
+  Baseline["Baseline 0.575"]
+  PR3["#3 explore 0.581, 1.5s"]:::pruned
+  PR4["#4 mutate 0.588, 1.2s"]:::champion
   Baseline -- explore --> PR3
   PR3 -- mutate --> PR4
 
-  classDef default fill:#f9f9f9,stroke:#333,stroke-width:1px;
-  classDef champion fill:#d4edda,stroke:#4caf50,stroke-width:3px;
-  classDef pruned fill:#f9f9f9,stroke:#ccc,stroke-width:1px,color:#999;
+  classDef default fill:#f9f9f9,stroke:#333,stroke-width:1px,color:#333;
+  classDef champion fill:#d4edda,stroke:#28a745,stroke-width:3px,color:#333;
+  classDef pruned fill:#f9f9f9,stroke:#ccc,stroke-width:1px,color:#aaa;
 ```
+
+Note: every `classDef` must include an explicit `color:` for text. Without it, text color is unpredictable across GitHub light/dark modes. Use `color:#333` (dark) for default and champion, `color:#aaa` (grey) for pruned only.
 
 **2. The Trait Matrix:** Format a markdown table of all attempts. Order them logically (e.g., grouping similar trait profiles together, or roughly by overall utility). The `Status` column should reflect the phenotype state (`active`, `pruned` if JSON contains `"pruned": true`, or `champion`), NOT the raw GitHub PR state (which is destroyed by Finalization).
 
