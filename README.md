@@ -59,7 +59,8 @@ Use evolve skill to create an issue to speed up the backtesting script.
 
 Trading strategy:
 ```text
-Use evolve skill to create an issue to improve the performance of my trading strategy using the backtest script.  Design the metrics.
+Use evolve skill to create an issue to improve the performance
+of my trading strategy using the backtest script.  Design the metrics.
 ```
 
 **Step 2.** Review the issue on GitHub, modify as needed. Then paste the prompt into your CLI:
