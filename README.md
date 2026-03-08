@@ -73,9 +73,9 @@ Evolve the issue.
 1. **Issue** = problem definition (objective, eval command, constraints) + leaderboard
 2. **PR** = one attempt (hypothesis, method, score, conclusion)
 3. **Strategy** = mutate the best, crossover two approaches, or explore something new
-4. **Prune** = close low-scoring PRs when the tree grows
+4. **Prune** = close Pareto-inferior PRs when the tree grows
 
-Each attempt's conclusion feeds into the next round's strategy. Scores provide objective signal. The leaderboard prevents going in circles.
+Each attempt's conclusion feeds into the next round's strategy. The eval command can output multiple metrics (e.g., P&L, Sharpe ratio, maximum drawdown) — the agent tracks them all in a trait matrix and uses Pareto dominance to decide what to keep. This means you don't need to reduce everything to a single score; trade-offs between metrics are preserved and explored.
 
 Inspired by Google's [AlphaEvolve](https://deepmind.google/discover/blog/alphaevolve-a-gemini-powered-coding-agent-for-designing-advanced-algorithms/).
 
