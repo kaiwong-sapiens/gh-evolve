@@ -27,7 +27,7 @@ Requires: `gh` CLI authenticated with your GitHub account.
 First, set up a problem (creates a structured GitHub issue):
 
 ```
-Use evolve skill to set up an issue: <what you want to optimize>
+Use evolve skill to create an issue: <what you want to optimize>
 ```
 
 Then evolve it:
@@ -48,23 +48,23 @@ Finalize evolve issue <number>
 
 Pi approximation (example: [kaiwong-sapiens/approximate-pi#1](https://github.com/kaiwong-sapiens/approximate-pi/issues/1)):
 ```text
-Use evolve skill to set up an issue: approximate pi.
+Use evolve skill to create an issue: approximate pi.
 No math module, only basic arithmetic.
+```
+
+Backtesting speed:
+```text
+Use evolve skill to create an issue to speed up the backtesting script.
 ```
 
 Trading strategy:
 ```text
-Use evolve skill to set up an issue:
-improve my trading strategy's risk-adjusted returns.
-Eval: python backtest.py (prints Sharpe ratio).
-Only modify strategy.py, no lookahead bias,
-max 5 positions at a time.
+Use evolve skill to create an issue to improve the performance of my trading strategy using the backtest script.  Design the metrics.
 ```
 
 **Step 2.** Review the issue on GitHub, modify as needed. Then paste the prompt into your CLI:
-
 ```text
-Evolve issue 1 for 3 rounds
+Evolve the issue.
 ```
 
 ## How it works
