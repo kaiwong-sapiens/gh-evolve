@@ -1,8 +1,8 @@
 # gh-evolve
 
-An AI Agent skill for evolutionary problem-solving over GitHub PRs. Works with Claude Code and Gemini CLI.
+An AI agent skill for evolutionary problem-solving over GitHub PRs. Works with Claude Code and Gemini CLI.
 
-Iteratively optimize code: each attempt is a PR with a score, the best survive, and conclusions teach the next round what to try. State lives entirely in GitHub issues and PRs.
+Each attempt is a PR with metrics and a conclusion. The best survive, the rest are pruned, and each conclusion teaches the next round what to try. All state lives in GitHub issues and PRs — no external tools required.
 
 ```
 GitHub Issue (root node)            <- problem definition + leaderboard
@@ -24,19 +24,19 @@ Requires: `gh` CLI authenticated with your GitHub account.
 
 ## Usage
 
-First, set up a problem (creates a structured GitHub issue):
+Create a problem (this sets up a structured GitHub issue):
 
 ```
 Use evolve skill to create an issue: <what you want to optimize>
 ```
 
-Then evolve it:
+Evolve it:
 
 ```
 Evolve issue <number> for 3 rounds
 ```
 
-When you are satisfied with the results, finalize it to automatically merge the winner and clean up the repository:
+When satisfied, finalize to merge the winner and clean up:
 
 ```
 Finalize evolve issue <number>
@@ -71,13 +71,13 @@ Evolve the issue.
 ## How it works
 
 1. **Issue** = problem definition (objective, eval command, constraints) + leaderboard
-2. **PR** = one attempt (hypothesis, method, score, conclusion)
+2. **PR** = one attempt (hypothesis, method, metrics, conclusion)
 3. **Strategy** = mutate the best, crossover two approaches, or explore something new
 4. **Prune** = close Pareto-inferior PRs when the tree grows
 
-Each attempt's conclusion feeds into the next. The eval command can output multiple metrics (e.g., P&L, Sharpe ratio, maximum drawdown) — the agent tracks them all in a trait matrix and uses Pareto dominance to decide what to keep, so you don't need to reduce everything to a single score.
+Each conclusion feeds into the next round. The eval command can output multiple metrics (e.g., P&L, Sharpe ratio, maximum drawdown) — the agent tracks them in a trait matrix and uses Pareto dominance to decide what to keep, so you don't need to reduce everything to a single score.
 
-After each round, the issue is updated with a search graph and trait matrix. This gives future rounds full context on what has been tried and what worked, preventing duplicate experiments and guiding strategy.
+After each round, the issue is updated with a search graph and trait matrix, giving future rounds full context on what has been tried and what worked — preventing duplicate experiments and guiding strategy.
 
 Inspired by Google's [AlphaEvolve](https://deepmind.google/discover/blog/alphaevolve-a-gemini-powered-coding-agent-for-designing-advanced-algorithms/).
 
