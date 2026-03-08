@@ -75,9 +75,9 @@ Evolve the issue.
 3. **Strategy** = mutate the best, crossover two approaches, or explore something new
 4. **Prune** = close Pareto-inferior PRs when the tree grows
 
-Each attempt's conclusion feeds into the next round's strategy. The eval command can output multiple metrics (e.g., P&L, Sharpe ratio, maximum drawdown) — the agent tracks them all in a trait matrix and uses Pareto dominance to decide what to keep. This means you don't need to reduce everything to a single score; trade-offs between metrics are preserved and explored.
+Each attempt's conclusion feeds into the next. The eval command can output multiple metrics (e.g., P&L, Sharpe ratio, maximum drawdown) — the agent tracks them all in a trait matrix and uses Pareto dominance to decide what to keep, so you don't need to reduce everything to a single score.
 
-The issue is updated after each round with a search graph and trait matrix, giving future rounds full visibility into what has been tried and what worked — avoiding duplicate experiments.
+After each round, the issue is updated with a search graph and trait matrix. This gives future rounds full context on what has been tried and what worked, preventing duplicate experiments and guiding strategy.
 
 Inspired by Google's [AlphaEvolve](https://deepmind.google/discover/blog/alphaevolve-a-gemini-powered-coding-agent-for-designing-advanced-algorithms/).
 
