@@ -79,6 +79,8 @@ Each conclusion feeds into the next round. The eval command can output multiple 
 
 After each round, the issue is updated with a search graph and trait matrix, giving future rounds full context on what has been tried and what worked — preventing duplicate experiments and guiding strategy.
 
+Since all state lives in the issue, multiple agents can work on the same problem in parallel — each one reads the latest leaderboard, picks a strategy, and submits a PR.
+
 Inspired by Google's [AlphaEvolve](https://deepmind.google/discover/blog/alphaevolve-a-gemini-powered-coding-agent-for-designing-advanced-algorithms/).
 
 ## License
