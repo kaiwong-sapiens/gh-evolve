@@ -276,6 +276,20 @@ Note: every `classDef` must include an explicit `color:` for text. Without it, t
 
 Update the main GitHub Issue body. If the issue is somehow empty or malformed, rebuild the entire `Issue body structure` (including Objective, Eval Command, Graph, and Matrix) from scratch. Otherwise, inject your new Mermaid diagram into the `## Search Graph` section and your Markdown table into the `## Trait Matrix` section. Use the `gh issue edit` CLI or your native tools to apply this update.
 
+**3. Refining the problem definition:** You are not limited to updating the Graph and Trait Matrix. The issue itself is a living document — any section can and should evolve as your understanding deepens. The initial problem setup is just a starting hypothesis; evolution often reveals that the real problem is different from what was originally stated.
+
+You may modify **anything** in the issue: the Objective, the Evaluate command, the Constraints, or even the structure of the issue itself. Examples:
+- A metric turns out to be uninformative → drop it from the eval command.
+- A new metric emerges as the real bottleneck → add it.
+- A constraint is too tight and every attempt hits it → relax it.
+- The objective was underspecified → sharpen it now that you understand the trade-off landscape.
+- The eval script measures the wrong thing entirely → redesign it.
+- You discover a better way to quantify success → rewrite the scoring.
+
+The best path to solving a problem is rarely obvious at the start. As you accumulate evidence, reformulate the problem to match what you've learned. A well-evolved issue definition is as valuable as a well-evolved solution.
+
+When you modify the problem definition, log what changed and why in the `## Evolution Log` so the history is transparent.
+
 ### 9. Reflect (multi-round)
 
 Before the next round, review the Trait Matrix. Have you discovered a new pattern? Which specific metric is acting as a bottleneck for your current best profile? Are you hitting diminishing returns on a specific trait? Use this to pick the next strategy.
