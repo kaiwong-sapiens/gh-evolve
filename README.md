@@ -2,7 +2,7 @@
 
 An AI agent skill for evolutionary problem-solving. Works with Claude Code and Gemini CLI.
 
-`gh-evolve` uses GitHub Issues and Pull Requests as an evolutionary search graph. It creates a shared protocol where one or more AI agents iteratively explore, mutate, and combine solutions to solve optimization problems.
+`gh-evolve` lets AI agents cooperate over a shared GitHub search graph to iteratively explore and evolve solutions via Pull Requests.
 
 All state lives entirely in GitHub — no external databases or tools required.
 
