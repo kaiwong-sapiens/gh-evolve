@@ -6,11 +6,21 @@ source: https://github.com/kaiwong-sapiens/gh-evolve
 
 # Evolutionary Problem-Solving over GitHub PRs
 
-This skill uses GitHub issues and PRs as an evolutionary search tree. An issue defines a problem (objective, eval command, constraints) and tracks a leaderboard. Each PR is one attempt with a score and conclusion. You iterate: study what worked, try something better, submit, repeat.
+This skill uses GitHub issues and PRs as an evolutionary search tree. An issue defines a problem (objective, eval command, constraints) and tracks a leaderboard. Each PR is one attempt with metrics and a conclusion. You iterate: study what worked, try something better, submit, repeat.
 
-This works because each attempt's conclusion teaches the next one what to try. Scores provide objective signal. The leaderboard prevents going in circles.
+This works because each attempt's conclusion teaches the next one what to try. Metrics provide objective signal. The leaderboard prevents going in circles.
 
 No CLI tool is needed — everything is done with `gh` and `git` directly.
+
+## Principles
+
+This skill has two layers: **protocol** and **guidance**.
+
+**Protocol** (hard constraints): Labels, branch naming, `EVOLVE_STATE` JSON, and issue/PR structure enable multiple agents to read each other's work. Follow these exactly — they are the shared language.
+
+**Guidance** (soft defaults): The numbered steps, strategies, and heuristics below reflect what works well today. They are starting points, not ceilings. If you see a better approach — a smarter strategy, a more efficient workflow, a better way to structure information — take it. The goal is to solve the problem, not to follow a script.
+
+As agents grow more capable, the guidance should fade into the background. The protocol stays.
 
 ## Arguments
 
@@ -22,7 +32,7 @@ If the user asks to set up a new problem, see "Creating a New Problem" at the bo
 
 ## Conventions
 
-These conventions make everything work together. Follow them exactly.
+These conventions are **protocol** — they enable interoperability between agents and across sessions. Follow them exactly.
 
 ### Labels and branches
 - Label: `evolve` (on both issues and PRs)
@@ -84,6 +94,8 @@ graph TD
 - **Key insight**: first line of `### Conclusion` section (truncated to 80 chars for the Trait Matrix)
 
 ## Protocol
+
+The steps below are **guidance** — a default workflow that works well. You may reorder, combine, or skip steps if you have good reason. The only hard requirement is that each round produces a PR with a valid `EVOLVE_STATE` and the issue is updated afterward.
 
 For each round:
 
@@ -160,7 +172,7 @@ git merge FETCH_HEAD --no-commit # Forces a hybrid state; resolve any conflicts!
 ### 5. Implement
 
 - Read the code you're modifying first
-- One idea per attempt — don't bundle unrelated changes
+- Default to one idea per attempt for clean signal — but combine ideas if you have strong reason to believe they interact or compound
 - Think about why prior approaches scored the way they did
 - Ensure your changes are coherent and specifically designed to improve the target metrics. Do not arbitrarily limit the scale of your changes if a major refactor is required.
 
@@ -178,7 +190,7 @@ If your environment supports it, run cheap/fast heuristic tests first. If the co
 ```
 
 **Self-Correction Loop:**
-If the command fails, crashes, or throws a syntax error/traceback, DO NOT create the PR immediately. You have up to **3 attempts** to read the error, fix the code, and re-run the evaluation. If the code still fails after 3 attempts, proceed to create the PR but record the metrics as `failed` and note the error in the conclusion.
+If the command fails, crashes, or throws a syntax error/traceback, DO NOT create the PR immediately. Read the error, fix the code, and re-run the evaluation. Use your judgment on how many fix attempts are worthwhile — but if you're going in circles, stop, create the PR with `failed` metrics, and record what went wrong in the conclusion.
 
 Note the resulting metrics from the output to populate your `EVOLVE_STATE`.
 
@@ -292,7 +304,14 @@ When you modify the problem definition, log what changed and why in the `## Evol
 
 ### 9. Reflect (multi-round)
 
-Before the next round, review the Trait Matrix. Have you discovered a new pattern? Which specific metric is acting as a bottleneck for your current best profile? Are you hitting diminishing returns on a specific trait? Use this to pick the next strategy.
+Before the next round, step back and think broadly:
+- What patterns have emerged in the Trait Matrix?
+- Which metric is the real bottleneck — is it even the right metric?
+- Are you hitting diminishing returns? Should you change the approach entirely?
+- Is the problem itself well-posed, or should the issue definition evolve?
+- Would a completely different framing unlock progress that incremental improvements cannot?
+
+Use this to pick not just the next strategy, but to decide whether the current search direction is worth continuing at all.
 
 ## Creating a New Problem
 
@@ -323,7 +342,7 @@ Don't overthink the setup. A trivial baseline is fine — the evolution rounds w
 
 ## Pruning
 
-When the matrix grows large, autonomously close redundant or strictly inferior PRs to keep things manageable. Prune an attempt if another attempt is **strictly better across ALL metrics** (Pareto inferior). Keep attempts that offer a unique, valuable trade-off profile. 
+When the matrix grows large, autonomously close redundant or strictly inferior PRs to keep things manageable. The default heuristic is Pareto dominance — prune an attempt if another is strictly better across all metrics. But use your judgment: you may also prune attempts that are theoretically interesting but practically redundant, or keep an "inferior" attempt if its approach has unexplored potential.
 
 To prune a PR:
 1. Edit the PR body to inject `"pruned": true` into its `EVOLVE_STATE` JSON block. This ensures the search graph remembers it was pruned even after finalization.
