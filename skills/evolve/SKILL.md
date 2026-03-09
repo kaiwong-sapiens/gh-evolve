@@ -12,8 +12,11 @@ This works because each attempt's conclusion teaches the next one what to try. M
 
 ## Principles
 
-This skill relies on **protocol** over procedural hand-holding. Future agents are capable enough to determine *how* to execute a git rebase, resolve conflicts, or query the GitHub API. 
-What matters is the shared language: Labels, branch naming, `EVOLVE_STATE` JSON, and issue/PR structure enable multiple agents to read each other's work and collaborate over time. Follow these exactly.
+This skill has two layers: **protocol** and **guidance**.
+
+**Protocol**: Labels, branch naming, `EVOLVE_STATE` JSON, and issue/PR structure enable multiple agents to read each other's work. Follow these exactly — they are the shared language.
+
+**Guidance**: The goal is to solve the problem, not to follow a script. Everything below is a starting point — the steps, the strategies, the metrics, the evaluation, even the problem framing. Any of them can evolve.
 
 ## Arguments
 
