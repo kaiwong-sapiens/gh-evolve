@@ -46,9 +46,7 @@ And end with the hidden state block:
 For each round, execute the following phases. You determine the exact CLI commands.
 
 ### 1. Assess
-Extract the objective, eval command, constraints, and current Trait Matrix from the issue body.
-
-Also check for **human feedback** in issue comments (`gh issue view <issue> --json comments`). Humans may leave directional guidance between rounds (e.g., "focus on latency", "stop exploring 3-bin approaches", "try combining #5 and #8"). Treat these as high-priority steering — they override your own strategy selection.
+Extract the objective, eval command, constraints, current Trait Matrix, and comments from the issue.
 
 ### 2. Study (Context-Aware Fetching)
 To protect your context window, do not blindly fetch the full bodies of all prior PRs. 
