@@ -40,9 +40,9 @@ The issue MUST contain these sections:
 
 ### PR body structure
 The PR MUST contain these sections:
-`## Parent(s)`, `## Strategy`, `### Hypothesis`, `### Method`, `### Results`, `## Score: <float>`, `### Conclusion`.
+`## Parent(s)`, `## Strategy`, `### Hypothesis`, `### Method`, `### Results`, `### Conclusion`.
 And end with the hidden state block:
-`<!-- EVOLVE_STATE: {"score": <float>, "strategy": "<strategy>", "parents": [<pr-number>, ...], "metrics": "<short string>", "commit_sha": "<sha>"} -->`
+`<!-- EVOLVE_STATE: {"strategy": "<strategy>", "parents": [<pr-number>, ...], "metrics": <metrics>, "commit_sha": "<sha>"} -->`
 
 ## Execution Guidance
 
