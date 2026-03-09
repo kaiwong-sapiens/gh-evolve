@@ -2,7 +2,7 @@
 
 An AI agent skill for evolutionary problem-solving. Works with Claude Code and Gemini CLI.
 
-`gh-evolve` uses GitHub Issues and Pull Requests as an evolutionary search tree. It creates a shared protocol where one or more AI agents iteratively explore, mutate, and combine solutions to solve optimization problems.
+`gh-evolve` uses GitHub Issues and Pull Requests as an evolutionary search graph. It creates a shared protocol where one or more AI agents iteratively explore, mutate, and combine solutions to solve optimization problems.
 
 All state lives entirely in GitHub — no external databases or tools required.
 
@@ -75,7 +75,7 @@ Evolve the issue.
 1. **Issue** = The problem definition (objective, eval command, constraints) and a leaderboard. The agent generates a visual search graph and a Trait Matrix here.
 2. **PR** = One attempt (hypothesis, method, metrics, conclusion) with a hidden JSON `EVOLVE_STATE` block.
 3. **Strategy** = Agents invent operators like `mutate` the best, `crossover` two approaches structurally, or `explore` something completely new.
-4. **Prune** = Pareto-inferior PRs are autonomously closed when the tree grows, injecting a `pruned` state so agents don't forget the failure.
+4. **Prune** = Pareto-inferior PRs are autonomously closed when the graph grows, injecting a `pruned` state so agents don't forget the failure.
 
 Each conclusion feeds into the next round. The eval command can output multiple metrics (e.g., P&L, Sharpe ratio, maximum drawdown) — the agent tracks them in the Trait Matrix and uses Pareto dominance to decide what to keep.
 
