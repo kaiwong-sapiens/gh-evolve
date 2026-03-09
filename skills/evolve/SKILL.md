@@ -48,6 +48,8 @@ For each round, execute the following phases. You determine the exact CLI comman
 ### 1. Assess
 Extract the objective, eval command, constraints, and current Trait Matrix from the issue body.
 
+Also check for **human feedback** in issue comments (`gh issue view <issue> --json comments`). Humans may leave directional guidance between rounds (e.g., "focus on latency", "stop exploring 3-bin approaches", "try combining #5 and #8"). Treat these as high-priority steering — they override your own strategy selection.
+
 ### 2. Study (Context-Aware Fetching)
 To protect your context window, do not blindly fetch the full bodies of all prior PRs. 
 1. Fetch only PR metadata (number, title, state, and the `EVOLVE_STATE` block) to build the Trait Matrix.
