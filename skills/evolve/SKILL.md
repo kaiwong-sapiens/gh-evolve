@@ -89,4 +89,4 @@ Infer the problem, create an eval script if needed, ensure the `evolve` label ex
 Autonomously close and prune redundant or strictly Pareto-inferior PRs to keep the search space manageable. Inject `"pruned": true` into their `EVOLVE_STATE` before closing, delete the remote branch, and remove them from the active Trait Matrix (but keep pruned nodes in the Matrix with a `pruned` status).
 
 ## Finalizing
-When requested to "Finalize" an issue: identify the winner, remove draft status (or merge if authorized), close runner-up PRs, delete their branches, and close the issue with a summary comment.
+When requested to "Finalize" an issue: identify the winning PR (or the specific PR requested by the user). Remove its draft status to mark it ready for review (or merge if authorized). Close all other open PRs for this issue, delete their branches, and close the main issue with a summary comment.
