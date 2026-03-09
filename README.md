@@ -2,7 +2,9 @@
 
 An AI agent skill for evolutionary problem-solving over GitHub PRs. Works with Claude Code and Gemini CLI.
 
-Each attempt is a PR with metrics and a conclusion. The best survive, the rest are pruned, and each conclusion teaches the next round what to try. All state lives in GitHub issues and PRs — no external tools required.
+`gh-evolve` transforms a standard GitHub Issue into an autonomous optimization environment. Instead of relying on brute force or a single long-context prompt to solve hard problems, this skill creates a shared protocol where one or more AI agents iteratively explore, mutate, and combine solutions as an evolutionary search tree. 
+
+All state lives entirely in GitHub — no external databases, CLI binaries, or web servers required.
 
 ```
 GitHub Issue (root node)            <- problem definition + leaderboard
@@ -11,6 +13,11 @@ GitHub Issue (root node)            <- problem definition + leaderboard
 ├── PR: attempt-3-mutate-of-2       <- score: 0.61  (best)
 └── PR: attempt-4-crossover-2-3     <- score: 0.55  (pruned)
 ```
+
+## Features
+- **Stateless & Concurrent:** Because the Issue body *is* the database, multiple CLI agents running on different machines can simultaneously read the Trait Matrix, invent new evolutionary operators, and submit PRs to the same issue without race conditions.
+- **Scientific Methodology:** Every PR is an attempt containing a clear hypothesis, execution method, resulting metrics, and a conclusion. This builds an explicit "Phenotype Matrix" preventing agents from repeating failed experiments.
+- **Pareto Pruning:** Tracks multi-dimensional metrics (e.g., P&L, Speed, Token Usage) rather than reducing everything to a single score. Autonomously prunes strictly inferior branches.
 
 ## Install
 
@@ -70,16 +77,14 @@ Evolve the issue.
 
 ## How it works
 
-1. **Issue** = problem definition (objective, eval command, constraints) + leaderboard
-2. **PR** = one attempt (hypothesis, method, metrics, conclusion)
-3. **Strategy** = mutate the best, crossover two approaches, or explore something new
-4. **Prune** = close Pareto-inferior PRs when the tree grows
+1. **Issue** = problem definition (objective, eval command, constraints) + leaderboard. The agent generates a Mermaid.js lineage graph and Markdown table on the issue.
+2. **PR** = one attempt (hypothesis, method, metrics, conclusion) with a hidden JSON `EVOLVE_STATE` block.
+3. **Strategy** = agents invent operators like `mutate` the best, `crossover` two approaches structurally, or `explore` something completely new to escape local maximums.
+4. **Prune** = close Pareto-inferior PRs when the tree grows, injecting a `pruned` state so agents don't forget the failure.
 
-Each conclusion feeds into the next round. The eval command can output multiple metrics (e.g., P&L, Sharpe ratio, maximum drawdown) — the agent tracks them in a trait matrix and uses Pareto dominance to decide what to keep, so you don't need to reduce everything to a single score.
+Each conclusion feeds into the next round. The eval command can output multiple metrics (e.g., P&L, Sharpe ratio, maximum drawdown) — the agent tracks them in a trait matrix and uses Pareto dominance to decide what to keep.
 
-After each round, the issue is updated with a search graph and trait matrix, giving future rounds full context on what has been tried and what worked — preventing duplicate experiments and guiding strategy.
-
-Since all state lives in the issue, multiple agents can work on the same problem in parallel — each one reads the latest leaderboard, picks a strategy, and submits a PR.
+After each round, the issue is updated with the search graph and trait matrix, giving future rounds full context on what has been tried and what worked — preventing duplicate experiments and guiding strategy.
 
 Inspired by Google's [AlphaEvolve](https://deepmind.google/discover/blog/alphaevolve-a-gemini-powered-coding-agent-for-designing-advanced-algorithms/).
 

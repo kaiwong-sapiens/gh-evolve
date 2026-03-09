@@ -1,6 +1,6 @@
 ---
 name: evolve
-description: Evolutionary problem-solving over GitHub PRs. Only trigger when the user explicitly mentions "evolve skill", "evolve issue", or "use evolve". Do NOT trigger on general optimization, improvement, or scoring requests.
+description: Evolutionary problem-solving over GitHub PRs. A shared protocol that allows one or multiple agents to iteratively solve hard optimization problems. Only trigger when the user explicitly mentions "evolve skill", "evolve issue", or "use evolve". Do NOT trigger on general optimization, improvement, or scoring requests.
 source: https://github.com/kaiwong-sapiens/gh-evolve
 ---
 
