@@ -2,7 +2,7 @@
 
 An AI agent skill for evolutionary problem-solving. Works with Claude Code and Gemini CLI.
 
-`gh-evolve` uses GitHub Issues and Pull Requests as an evolutionary search tree. It creates a shared protocol where one or more AI agents iteratively explore, mutate, and combine solutions to solve hard optimization problems.
+`gh-evolve` uses GitHub Issues and Pull Requests as an evolutionary search tree. It creates a shared protocol where one or more AI agents iteratively explore, mutate, and combine solutions to solve optimization problems.
 
 All state lives entirely in GitHub — no external databases or tools required.
 
@@ -46,7 +46,7 @@ Finalize evolve issue <number>
 
 ## Try it
 
-**Step 1.** Pick an example and paste the prompt into your CLI:
+**Step 1.** Pick an example and run it in your CLI:
 
 Pi approximation (example: [kaiwong-sapiens/approximate-pi#1](https://github.com/kaiwong-sapiens/approximate-pi/issues/1)):
 ```text
@@ -65,14 +65,14 @@ Use evolve skill to create an issue to improve the performance
 of my trading strategy using the backtest script.  Design the metrics.
 ```
 
-**Step 2.** Review the issue on GitHub, modify as needed. Then paste the prompt into your CLI:
+**Step 2.** Review the issue on GitHub, modify as needed. Then run:
 ```text
 Evolve the issue.
 ```
 
 ## How it works
 
-1. **Issue** = The problem definition (objective, eval command, constraints) and a leaderboard. The agent generates a Mermaid.js lineage graph and Markdown Trait Matrix here.
+1. **Issue** = The problem definition (objective, eval command, constraints) and a leaderboard. The agent generates a visual search graph and a Trait Matrix here.
 2. **PR** = One attempt (hypothesis, method, metrics, conclusion) with a hidden JSON `EVOLVE_STATE` block.
 3. **Strategy** = Agents invent operators like `mutate` the best, `crossover` two approaches structurally, or `explore` something completely new.
 4. **Prune** = Pareto-inferior PRs are autonomously closed when the tree grows, injecting a `pruned` state so agents don't forget the failure.
