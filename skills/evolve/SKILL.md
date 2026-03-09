@@ -50,7 +50,7 @@ Extract the objective, eval command, constraints, and current Trait Matrix from 
 
 ### 2. Study (Context-Aware Fetching)
 To protect your context window, do not blindly fetch the full bodies of all prior PRs. 
-1. Fetch only PR metadata (number, title, state, and the `EVOLVE_STATE` block) to build a Phenotype Matrix.
+1. Fetch only PR metadata (number, title, state, and the `EVOLVE_STATE` block) to build the Trait Matrix.
 2. Identify the most interesting or dominant profiles. 
 3. Deep-fetch the diffs/files *only* for the specific PRs you intend to study or mutate.
 Read their conclusions to decide your strategy. Cross-pollination of ideas is critical to escaping local maximums.
