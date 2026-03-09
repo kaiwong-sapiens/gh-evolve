@@ -79,7 +79,7 @@ Push your branch and create a DRAFT PR with the required body structure and `EVO
 The conclusion is the most critical part: write what you learned and what the next attempt should focus on.
 
 ### 7. Update the Issue (Graph and Matrix)
-Rebuild the state from all PRs and immediately update the main Issue body. 
+Rebuild the state from all PRs and immediately update the main Issue body. Re-read the issue body right before writing to avoid overwriting concurrent updates from other agents.
 - **Graph Pruning:** If the Mermaid graph exceeds ~30 nodes, only render the "Active Frontier" (champions, active nodes, and immediate parents) to prevent rendering failures. 
 - Use `:::champion` (green) for the best node, `:::pruned` (grey) for nodes with `"pruned": true` in their state. No special characters in node labels.
 - Update the Trait Matrix table. 
