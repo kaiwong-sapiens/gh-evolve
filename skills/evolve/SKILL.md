@@ -63,7 +63,7 @@ Invent your own evolutionary operators based on the situation:
 - **`explore`**: Establish a baseline.
 - **`mutate`**: Refine a promising trait profile.
 - **`crossover`**: Semantically combine two complementary profiles. (Prefer semantic integration reading both parents over raw textual `git merge` to avoid broken conflict markers).
-- **`co-evolve`**: Mutate the eval script to raise environment difficulty (combating Goodhart's Law).
+- **`co-evolve`**: Mutate the evaluation criteria to raise environment difficulty (combating Goodhart's Law).
 - **`revolution`**: Discard the current paradigm and rewrite from scratch to escape a local maximum.
 
 ### 4. Branch & Implement
@@ -86,7 +86,7 @@ Rebuild the state from all PRs and immediately update the main Issue body. Re-re
 - **Refine the Problem:** The issue is a living document. If a metric is bad, drop it. If a constraint is too tight, relax it. Log problem definition changes in the `## Evolution Log`.
 
 ## Creating a New Problem
-Infer the problem, create an eval script if needed, ensure the `evolve` label exists, and create the issue with the structured body. Run the baseline once to verify the eval script works.
+Infer the problem, discover the evaluation mechanism from the codebase (tests, existing scripts, CI), ensure the `evolve` label exists, and create the issue with the structured body. Run the baseline once to verify evaluation works.
 
 ## Pruning
 Autonomously close and prune redundant or strictly Pareto-inferior PRs to keep the search space manageable. Inject `"pruned": true` into their `EVOLVE_STATE` before closing, delete the remote branch, and remove them from the active Trait Matrix (but keep pruned nodes in the Matrix with a `pruned` status).
