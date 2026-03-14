@@ -36,7 +36,7 @@ These conventions enable interoperability between agents and across sessions.
 
 ### Issue body structure
 The issue MUST contain these sections:
-`## Objective`, `## Evaluate` (with a bash code block), `## Constraints`, `## Search Graph` (Mermaid), `## Trait Matrix` (Markdown table), and `## Evolution Log`.
+`## Objective`, `## Evaluate`, `## Constraints`, `## Findings`, `## Search Graph` (Mermaid), `## Trait Matrix` (Markdown table), and `## Evolution Log`.
 
 ### PR body structure
 The PR MUST contain these sections:
@@ -79,10 +79,11 @@ Push your branch and create a DRAFT PR with the required body structure and `EVO
 The conclusion is the most critical part: write what you learned and what the next attempt should focus on.
 
 ### 7. Update the Issue (Graph and Matrix)
-Rebuild the state from all PRs and immediately update the main Issue body. Re-read the issue body right before writing to avoid overwriting concurrent updates from other agents.
+Rebuild the state from all PRs and immediately update the main Issue body. To avoid overwriting concurrent updates from other agents: re-read the issue body right before writing, and after writing, re-read to verify your changes are present. If another agent overwrote your update, re-read the current body, merge your changes into it, and write again.
 - **Graph Pruning:** If the Mermaid graph exceeds ~30 nodes, only render the "Active Frontier" (champions, active nodes, and immediate parents) to prevent rendering failures. 
 - Use `:::champion` (green) for the best node, `:::pruned` (grey) for nodes with `"pruned": true` in their state. No special characters in node labels.
-- Update the Trait Matrix table. 
+- Update the Trait Matrix table.
+- **Update Findings:** Synthesize what has been learned so far — what works, what doesn't, and why. This is the executive summary a human reads to understand the current state without reviewing individual PRs.
 - **Refine the Problem:** The issue is a living document. If a metric is bad, drop it. If a constraint is too tight, relax it. Log problem definition changes in the `## Evolution Log`.
 
 ## Creating a New Problem
