@@ -66,22 +66,20 @@ Invent your own evolutionary operators based on the situation:
 - **`co-evolve`**: Mutate the evaluation criteria to raise environment difficulty (combating Goodhart's Law).
 - **`revolution`**: Discard the current paradigm and rewrite from scratch to escape a local maximum.
 
-### 4. Branch & Implement
-Branch off the appropriate parent commit using the naming convention. Ensure changes are coherent and specifically designed to improve target metrics.
+### 4. Branch, PR & Implement
+Branch off the appropriate parent commit using the naming convention. Create the DRAFT PR immediately with your hypothesis and add yourself to the issue's Trait Matrix with status `in progress`. This signals to other agents and humans what is being worked on. Implement your changes, then update the PR with results when done.
 
 ### 5. Evaluate (Isolated & Fast-Fail)
 Extract the eval command and run it.
 - **Isolation:** Ensure your evaluation does not leave lingering state (modified DBs, config files) that could poison subsequent generations. Clean up after yourself.
 - **Self-Correction:** If cheap heuristic tests fail, do not run full evaluations. Read the error, fix the code, re-run. If stuck, submit the PR with `failed` metrics and record the error in the conclusion.
 
-### 6. Submit PR
-Push your branch and create a DRAFT PR with the required body structure and `EVOLVE_STATE` block. The `commit_sha` field ensures strict reproducibility. 
-The conclusion is the most critical part: write what you learned and what the next attempt should focus on.
+### 6. Complete PR
+Update the PR with results, conclusion, and `EVOLVE_STATE` block. The conclusion is the most critical part: write what you learned and what the next attempt should focus on.
 
 ### 7. Update the Issue (Graph and Matrix)
 Rebuild the state from all PRs and immediately update the main Issue body. To avoid overwriting concurrent updates from other agents: re-read the issue body right before writing, and after writing, re-read to verify your changes are present. If another agent overwrote your update, re-read the current body, merge your changes into it, and write again.
-- **Graph Pruning:** If the Mermaid graph exceeds ~30 nodes, only render the "Active Frontier" (champions, active nodes, and immediate parents) to prevent rendering failures. 
-- Use `:::champion` (green) for the best node, `:::pruned` (grey) for nodes with `"pruned": true` in their state. No special characters in node labels.
+- **Graph Pruning:** If the Mermaid graph gets too large to render cleanly, only render the "Active Frontier" (champions, active nodes, and immediate parents). Visually distinguish champion and pruned nodes.
 - Update the Trait Matrix table.
 - **Update Findings:** Synthesize what has been learned so far — what works, what doesn't, and why. This is the executive summary a human reads to understand the current state without reviewing individual PRs.
 - **Refine the Problem:** The issue is a living document. If a metric is bad, drop it. If a constraint is too tight, relax it. Log problem definition changes in the `## Evolution Log`.
@@ -90,7 +88,7 @@ Rebuild the state from all PRs and immediately update the main Issue body. To av
 Infer the problem, discover the evaluation mechanism from the codebase (tests, existing scripts, CI), ensure the `evolve` label exists, and create the issue with the structured body. Run the baseline once to verify evaluation works.
 
 ## Pruning
-Autonomously close and prune redundant or strictly Pareto-inferior PRs to keep the search space manageable. Inject `"pruned": true` into their `EVOLVE_STATE` before closing, delete the remote branch, and remove them from the active Trait Matrix (but keep pruned nodes in the Matrix with a `pruned` status).
+Autonomously close and prune redundant or strictly Pareto-inferior PRs to keep the search space manageable. Mark pruned PRs in their `EVOLVE_STATE` and clean up their branches.
 
 ## Finalizing
 When requested to "Finalize" an issue: identify the winning PR (or the specific PR requested by the user). Remove its draft status to mark it ready for review (or merge if authorized). Close all other open PRs for this issue, delete their branches, and close the main issue with a summary comment.
