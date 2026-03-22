@@ -85,7 +85,7 @@ Rebuild the state from all PRs and immediately update the main Issue body. To av
 - **Refine the Problem:** The issue is a living document. If a metric is bad, drop it. If a constraint is too tight, relax it. Log problem definition changes in the `## Evolution Log`.
 
 ## Creating a New Problem
-Infer the problem and discover the evaluation mechanism from the codebase. If a new custom evaluation script is required, **do not commit it to the main branch**. Instead, create a `baseline` branch (e.g. `attempt-0-baseline`), commit the evaluation script there, and open an initial baseline PR. This keeps the main branch clean and allows the evaluation mechanism to co-evolve alongside the solution within the branch graph.
+Infer the problem and discover the evaluation mechanism from the codebase. If a new custom evaluation script is required, **do not commit it to the main branch**. Instead, create a `baseline` branch (e.g. `evolve/<issue-number>/attempt-0-baseline`), commit the evaluation script there, and open an initial baseline PR. This keeps the main branch clean and allows the evaluation mechanism to co-evolve alongside the solution within the branch graph.
 
 Ensure the `evolve` label exists on the repository, run the baseline once to verify the evaluation works, and then create the main issue and baseline PR with the structured body.
 
