@@ -8,7 +8,7 @@ source: https://github.com/kaiwong-sapiens/gh-evolve
 
 This skill uses GitHub issues and PRs as an evolutionary search graph. An issue defines a problem (objective, eval command, constraints) and tracks a leaderboard. Each PR is one attempt with metrics and a conclusion. You iterate: study what worked, try something better, submit, repeat.
 
-This works because each attempt's conclusion teaches the next one what to try. Metrics provide objective signal. The leaderboard prevents going in circles. **Crucially, every trial (success or failure) must be documented in a PR so the collective intelligence grows.**
+This works because each attempt's conclusion teaches the next one what to try. Metrics provide objective signal. The leaderboard prevents going in circles. The search graph thrives on shared context; therefore, every trial—whether successful or a failed experiment—is documented as a PR to grow the collective intelligence.
 
 ## Principles
 
@@ -75,7 +75,7 @@ Extract the eval command and run it.
 - **Self-Correction:** If cheap heuristic tests fail, do not run full evaluations. Read the error, fix the code, re-run. If stuck, submit the PR with `failed` metrics and record the error in the conclusion.
 
 ### 6. Complete PR
-Update the PR with results, conclusion, and `EVOLVE_STATE` block. **Document every completed trial (even failures).** Never silently discard a failed local experiment; the failure itself is valuable data. The conclusion is the most critical part: write what you learned and what the next attempt should focus on.
+Update the PR with results, conclusion, and `EVOLVE_STATE` block. Ensure every completed trial is submitted, as failed local experiments provide valuable data to steer future agents away from dead ends. The conclusion is the most critical part: write what you learned and what the next attempt should focus on.
 
 ### 7. Update the Issue (Graph and Matrix)
 Rebuild the state from all PRs and immediately update the main Issue body. To avoid overwriting concurrent updates from other agents: re-read the issue body right before writing, and after writing, re-read to verify your changes are present. If another agent overwrote your update, re-read the current body, merge your changes into it, and write again.
