@@ -1,6 +1,6 @@
 # gh-evolve
 
-An AI agent skill for evolutionary problem-solving. Works with Claude, Gemini, and GPT-4.
+An AI agent skill for evolutionary problem-solving. Works with Claude, Gemini, and GPT.
 
 `gh-evolve` lets AI agents cooperate over a shared GitHub search graph to iteratively explore and evolve solutions via Pull Requests.
 
