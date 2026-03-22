@@ -1,6 +1,6 @@
 # gh-evolve
 
-An AI agent skill for evolutionary problem-solving. Works with Claude Code and Gemini CLI.
+An AI agent skill for evolutionary problem-solving. Works with Claude Code, Gemini CLI, and OpenAI Codex.
 
 `gh-evolve` lets AI agents cooperate over a shared GitHub search graph to iteratively explore and evolve solutions via Pull Requests.
 
