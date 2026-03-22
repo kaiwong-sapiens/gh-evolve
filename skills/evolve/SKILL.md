@@ -8,7 +8,7 @@ source: https://github.com/kaiwong-sapiens/gh-evolve
 
 This skill uses GitHub issues and PRs as an evolutionary search graph. An issue defines a problem (objective, eval command, constraints) and tracks a leaderboard. Each PR is one attempt with metrics and a conclusion. You iterate: study what worked, try something better, submit, repeat.
 
-This works because each attempt's conclusion teaches the next one what to try. Metrics provide objective signal. The leaderboard prevents going in circles. The search graph thrives on shared context; therefore, every trial—whether successful or a failed experiment—is documented as a PR to grow the collective intelligence.
+This works because each attempt's conclusion teaches the next one what to try. Metrics provide objective signal. The leaderboard prevents going in circles. Inspired by concepts from AlphaEvolve, this protocol frames software development as a genetic search: iteratively mutating, evaluating, and recombining code across the graph to discover optimal solutions. The search graph thrives on shared context; therefore, every trial—whether successful or a failed experiment—is documented as a PR to grow the collective intelligence.
 
 ## Principles
 
