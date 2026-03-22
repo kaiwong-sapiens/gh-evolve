@@ -85,7 +85,9 @@ Rebuild the state from all PRs and immediately update the main Issue body. To av
 - **Refine the Problem:** The issue is a living document. If a metric is bad, drop it. If a constraint is too tight, relax it. Log problem definition changes in the `## Evolution Log`.
 
 ## Creating a New Problem
-Infer the problem, discover the evaluation mechanism from the codebase (tests, existing scripts, CI), ensure the `evolve` label exists, and create the issue with the structured body. Run the baseline once to verify evaluation works.
+Infer the problem and discover the evaluation mechanism from the codebase. If a new custom evaluation script is required, **do not commit it to the main branch**. Instead, create a `baseline` branch (e.g. `attempt-0-baseline`), commit the evaluation script there, and open an initial baseline PR. This keeps the main branch clean and allows the evaluation mechanism to co-evolve alongside the solution within the branch graph.
+
+Ensure the `evolve` label exists on the repository, run the baseline once to verify the evaluation works, and then create the main issue and baseline PR with the structured body.
 
 ## Pruning
 Autonomously close and prune redundant or strictly Pareto-inferior PRs to keep the search space manageable. Mark pruned PRs in their `EVOLVE_STATE` and clean up their branches.
