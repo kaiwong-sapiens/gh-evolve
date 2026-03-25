@@ -94,3 +94,6 @@ Autonomously close and prune redundant or strictly Pareto-inferior PRs to keep t
 
 ## Finalizing
 When requested to "Finalize" an issue: identify the winning PR (or the specific PR requested by the user). Remove its draft status to mark it ready for review (or merge if authorized). Close all other open PRs for this issue, delete their branches, and close the main issue with a summary comment.
+
+## Updating
+If the user asks to update or check for updates to the evolve skill, fetch the latest `SKILL.md` from the `source` repository in the frontmatter and overwrite your local copy if it has changed.
